@@ -1,9 +1,16 @@
 package game;
 
+import processing.core.PApplet;
+
 public abstract class DisplayObject {
 	
-	PApplet parent;
-	int x, y;
+	public PApplet p;
+	public int x, y;
+	
+	public DisplayObject(PApplet p)
+	{
+		this.p = p;
+	}
 	
 	public void draw()
 	{
