@@ -7,15 +7,24 @@ public class Main extends PApplet{
 	private Game g;
 	private Platform stage;
 	
+	public Main()
+	{
+		g = new Game();
+		g.initPApplet(this);
+	}
+	
 	public void setup()
 	{
 		size(960, 680);
-		g = new Game(this);
+		g.init();
+		
 	}
 	
 	public void draw()
 	{
-		g.draw();
+		clear();
+		g.run();
+		g.drawChildren();
 	}
 
 }

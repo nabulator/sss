@@ -2,17 +2,26 @@ package game;
 
 import processing.core.PApplet;
 
-public class Game {
+public class Game extends DisplayObject {
 	
-	PApplet p;
+	private Platform finalDestination;
 	
-	public Game(PApplet parent)
+	public Game()
 	{
-		this.p = parent;
+		finalDestination = new Platform(600, 40);
+	}
+	
+	public void init()
+	{
+		//bg(0, 1, 1);
+		this.add( finalDestination );
+		finalDestination.x = 200;
+		finalDestination.y = 300;
 	}
 
-	public void draw()
+	double q=0;
+	public void run()
 	{
-		p.background(0);
+		finalDestination.x += Math.sin(q += 0.03);
 	}
 }

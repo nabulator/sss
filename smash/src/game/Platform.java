@@ -6,15 +6,15 @@ public class Platform extends DisplayObject {
 	
 	public int height, width;
 	
-	public Platform(PApplet p)
+	public Platform(int h, int w)
 	{
-		super(p);
+		height = h;
+		width = w;
 	}
 	
 	public void draw()
 	{
-		p.color(200);
-		p.rect(10, 20, 20, 20);
-		
+		fill(255, 25, 123);
+		rect( 0, 0, height, width);
 	}
 }
