@@ -31,13 +31,33 @@ public abstract class DisplayObject {
 	
 	public void drawChildren()
 	{
-		//System.out.println("draw + sz " + children.size() );
-		
 		for( int i=0; i<children.size(); i++)
 			children.get(i).drawChildren();
-		
 		draw();
+	}
 	
+	public void initChildren()
+	{
+		for( int i=0; i<children.size(); i++)
+			children.get(i).initChildren();
+		init();
+	}
+	
+	public void runChildren()
+	{
+		for( int i=0; i<children.size(); i++)
+			children.get(i).runChildren();
+		run();
+	}
+	
+	public void init()
+	{
+		
+	}
+	
+	public void run()
+	{
+		
 	}
 	
 	public void draw()
@@ -59,7 +79,7 @@ public abstract class DisplayObject {
 	
 	public void circle( int x0, int y0, int radius )
 	{
-		p.ellipse( x+x0, y+y0, radius, radius);
+		p.ellipse( x+x0, y+y0, radius * 2, radius * 2);
 	}
 	
 	public void fill( int rgb )

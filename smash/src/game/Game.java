@@ -4,24 +4,40 @@ import processing.core.PApplet;
 
 public class Game extends DisplayObject {
 	
-	private Platform finalDestination;
+	private Platform fd;
+	private Character k1;
 	
 	public Game()
 	{
-		finalDestination = new Platform(600, 40);
+		fd = new Platform(900, 40);
+		k1 = new Character();
 	}
 	
 	public void init()
 	{
 		//bg(0, 1, 1);
-		this.add( finalDestination );
-		finalDestination.x = 200;
-		finalDestination.y = 300;
+		this.add( fd );
+		this.add( k1 );
+		
+		fd.x = 00;
+		fd.y = 600;
 	}
 
-	double q=0;
+
 	public void run()
 	{
-		finalDestination.x += Math.sin(q += 0.03);
+		//physics
+		//bouncing
+		if( k1.y + k1.RADIUS > fd.y )
+		{
+			k1.dy = 0;
+			k1.y = fd.y - k1.RADIUS - 1;
+		}
+		
+		if( Main.keysPressed[0] )
+			k1.moveLeft();
+		if( Main.keysPressed[1] )
+			k1.moveRight();
+			
 	}
 }
