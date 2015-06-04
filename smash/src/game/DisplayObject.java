@@ -38,9 +38,10 @@ public abstract class DisplayObject {
 	
 	public void initChildren()
 	{
+		init();
 		for( int i=0; i<children.size(); i++)
 			children.get(i).initChildren();
-		init();
+		
 	}
 	
 	public void runChildren()
@@ -95,6 +96,11 @@ public abstract class DisplayObject {
 	public void bg( int r, int g, int b )
 	{
 		p.background(r, g, b);
+	}
+	
+	public void noStroke()
+	{
+		p.noStroke();
 	}
 	
 }

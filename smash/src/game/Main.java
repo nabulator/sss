@@ -13,7 +13,7 @@ public class Main extends PApplet{
 		g = new Game();
 		g.initPApplet(this);
 		
-		keysPressed = new boolean[2];
+		keysPressed = new boolean[4];
 	}
 	
 	public void setup()
@@ -41,7 +41,8 @@ public class Main extends PApplet{
 		{
 			case 65: keysPressed[0] = true; break;
 			case 68: keysPressed[1] = true; break;
-			
+			case 74: keysPressed[2] = true; break;
+			case 72: keysPressed[3] = true; break;
 		}
 	}
 	
@@ -56,6 +57,8 @@ public class Main extends PApplet{
 		{
 			case 65: keysPressed[0] = false; break;
 			case 68: keysPressed[1] = false; break;	
+			case 74: keysPressed[2] = false; break;
+			case 72: keysPressed[3] = false; break;
 		}
 	}
 

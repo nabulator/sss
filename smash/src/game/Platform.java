@@ -1,21 +1,27 @@
 package game;
 
+import java.awt.Rectangle;
+
 import processing.core.PApplet;
 
 public class Platform extends DisplayObject {
 	
-	public int height, width;
+	public Rectangle r = new Rectangle();
 	
 	public Platform(int w, int h)
 	{
-		height = h;
-		width = w;
+		r.height = h;
+		r.width= w;
 	}
 	
 	public void draw()
 	{
 		fill(255, 25, 123);
-		rect( 0, 0, width, height);
+		rect( 0, 0, r.width, r.height);
 	}
-
+	
+	public boolean contains(float x0, float y0)
+	{
+		return r.contains( x + x0, y + y0);
+	}
 }
