@@ -2,6 +2,7 @@ package game;
 
 
 import java.util.ArrayList;
+
 import processing.core.PApplet;
 
 /**
@@ -12,6 +13,7 @@ import processing.core.PApplet;
 public abstract class DisplayObject {
 	
 	private PApplet p;
+	private DisplayObject parent; //NULL if STAGE
 	public float x, y; //Center point! Not upper left corner!!!
 	public ArrayList<DisplayObject> children = new ArrayList<DisplayObject>();
 	
@@ -19,21 +21,24 @@ public abstract class DisplayObject {
 	public void add(DisplayObject d)
 	{
 		d.p = p;
-		this.x = 0;
-		this.y = 0;
+		d.x = 0;
+		d.y = 0;
+		d.parent = this;
 		children.add(d);
 	}
 	
-	public void initPApplet(PApplet p)
+	public void initStage(PApplet p)
 	{
 		this.p = p;
+		this.parent = null;
 	}
 	
 	public void drawChildren()
 	{
+		draw();
 		for( int i=0; i<children.size(); i++)
 			children.get(i).drawChildren();
-		draw();
+		
 	}
 	
 	public void initChildren()
@@ -41,14 +46,14 @@ public abstract class DisplayObject {
 		init();
 		for( int i=0; i<children.size(); i++)
 			children.get(i).initChildren();
-		
 	}
 	
 	public void runChildren()
 	{
+		run();
 		for( int i=0; i<children.size(); i++)
 			children.get(i).runChildren();
-		run();
+		
 	}
 	
 	public void init()
@@ -73,14 +78,23 @@ public abstract class DisplayObject {
 	 * This makes sprite movement easier...
 	 */
 	
-	public void rect( int x0, int y0, int width, int height )
+	private float parentsX()
 	{
-		p.rect( x0 + x, y0 + y, width, height);
+		return parent != null ? parent.x : 0;
+	}
+	private float parentY()
+	{
+		return parent != null ? parent.y : 0;
+	}
+	
+	public void rect( float x0, float y0, float width, float height )
+	{
+		p.rect( parentsX() + x + x0, parentY() + y + y0, width, height);
 	}
 	
 	public void circle( int x0, int y0, int radius )
 	{
-		p.ellipse( x+x0, y+y0, radius * 2, radius * 2);
+		p.ellipse( parentsX() + x + x0, parentY() + y + y0, radius * 2, radius * 2);
 	}
 	
 	public void fill( int rgb )
@@ -101,6 +115,11 @@ public abstract class DisplayObject {
 	public void noStroke()
 	{
 		p.noStroke();
+	}
+	
+	public int frameCount()
+	{
+		return p.frameCount;
 	}
 	
 }

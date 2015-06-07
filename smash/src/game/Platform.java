@@ -18,6 +18,7 @@ public class Platform extends DisplayObject {
 	{
 		fill(255, 25, 123);
 		rect( 0, 0, r.width, r.height);
+		
 	}
 	
 	public boolean contains(float x0, float y0)

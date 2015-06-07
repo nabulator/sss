@@ -11,16 +11,17 @@ public class Main extends PApplet{
 	public Main()
 	{
 		g = new Game();
-		g.initPApplet(this);
+		g.initStage(this);
 		
 		keysPressed = new boolean[4];
 	}
 	
 	public void setup()
 	{
+		frameRate(30);
 		size(960, 680);
 		g.initChildren();
-		
+
 	}
 	
 	public void draw()
