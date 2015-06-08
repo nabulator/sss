@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
@@ -12,7 +13,8 @@ public class Game extends DisplayObject {
 	private Platform fd;
 	private Character k1;
 	
-	private Rectangle2D.Float rightCorner, leftCorner;
+	private Rectangle boundaries;
+	
 	private QuarterCircle rightQC, leftQC;
 	
 	public Game()
@@ -20,6 +22,9 @@ public class Game extends DisplayObject {
 		fd = new Platform(700, 120);
 		k1 = new Character();
 
+		
+		final int HEIGHT = 650, WIDTH = 950;
+		boundaries = new Rectangle(0, 0, WIDTH, HEIGHT);
 	}
 	
 	public void init()
@@ -96,12 +101,23 @@ public class Game extends DisplayObject {
 		//FOR RESET GAME
 		if( Main.reset )
 		{
-			k1.init();
-			k1.x = 200;
-			k1.y = 300;
+			resetCharacter(k1);
+		}
+		
+		//KO DETECTION
+		Point k1Pos = new Point((int)k1.x, (int)k1.y);
+		if(!boundaries.contains(k1Pos))
+		{
+			resetCharacter(k1);
 		}
 			
-			
+	}
+	
+	public static void resetCharacter(Character c)
+	{
+		c.init();
+		c.x = 200;
+		c.y = 300;
 	}
 	
 	public void draw()

@@ -4,11 +4,12 @@ import java.awt.Color;
 
 public class Character extends DisplayObject
 {
-	public Circle hurtBox, hitBox, shieldBox;
+	public Circle hurtBox, hitBox, shieldBox, eye;
 	public int dmg;
 	public boolean attack, special, onGround;
 	public int attackFrameTimer, specialFrameTimer, shieldFrameCount;
 	public float dx, dy;
+	public int dir, attackDir;
 	
 	public final static float GRAVITY = 0.55f,  ddx = 1.5f, FRICTION_DAMP = 0.2f;
 	public final static int RADIUS = 40, MAX_HOR_SPEED = 12, MAX_FALL_SPEED = 10;
@@ -20,6 +21,7 @@ public class Character extends DisplayObject
 	public Character()
 	{
 		dmg = 0;
+		dir = 1;
 		hurtBox = new Circle(RADIUS);
 		hurtBox.color = Color.CYAN;
 		
@@ -31,6 +33,10 @@ public class Character extends DisplayObject
 		shieldBox.color = new Color( 0xbc0f5a );
 		shieldBox.alpha = 166.0f;
 		shieldFrameCount = SHIELD_MAX;
+		
+		eye = new Circle(10);
+		eye.color = Color.BLACK;
+	
 	}
 	
 	public void init()
@@ -38,16 +44,22 @@ public class Character extends DisplayObject
 		this.dx = 0;
 		this.dy = 0;
 		this.onGround = false;
-		
+				
 		this.add(hurtBox);
+		this.add(eye);
 		this.add(hitBox);
 		this.add(shieldBox);
+		
+		eye.x = 20;
+		eye.y = -10;
 	}
 	
 	public void run()
 	{
 		this.x += dx;
 		this.y += dy;
+		
+		eye.x = 20*dir;
 		
 		//friction
 		if( dx > 0.001f || dx < -0.001f)
@@ -66,7 +78,7 @@ public class Character extends DisplayObject
 	
 	public void attack()
 	{
-		if( attackFrameTimer == 0 )
+		if( attackFrameTimer == 0 && shieldBox.visible == false)
 		{
 			attack = true;
 			attackFrameTimer = 15;
@@ -76,7 +88,7 @@ public class Character extends DisplayObject
 	
 	public void shield( boolean isPressed )
 	{
-		if( isPressed )
+		if( isPressed && attackFrameTimer == 0 )
 		{
 			if( shieldFrameCount > 0 )
 				shieldFrameCount--;
@@ -98,12 +110,14 @@ public class Character extends DisplayObject
 	{
 		if( dx > -MAX_HOR_SPEED )
 			dx -= ddx;
+		dir = -1;
 	}
 	
 	public void moveRight()
 	{
 		if( dx < MAX_HOR_SPEED )
 			dx += ddx;
+		dir = 1;
 	}
 	
 	public void draw()
@@ -111,12 +125,15 @@ public class Character extends DisplayObject
 		noStroke();
 		hitBox.visible = attackFrameTimer > 0;
 		
+		if(attackFrameTimer == 0)
+			attackDir = dir;
+		
 		if( attackFrameTimer >= 12 )
-			hitBox.x += 15;
+			hitBox.x += 15 * attackDir;
 		else if( attackFrameTimer > 0 )
-			hitBox.x -= 5;
+			hitBox.x -= 5*attackDir;
 		else
-			hitBox.x = JAB_START_POS;
+			hitBox.x = JAB_START_POS*attackDir;
 		
 		
 	}
