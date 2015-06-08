@@ -53,6 +53,7 @@ public class Game extends DisplayObject {
 					k1.dy = 0;
 					k1.y = fd.y - k1.RADIUS;
 					k1.onGround = true;
+					k1.jumpCount = 0;
 				}
 				else 
 					k1.dx *= -1;
@@ -90,6 +91,8 @@ public class Game extends DisplayObject {
 			k1.moveRight();
 		if( Main.keysPressed[2] )
 			k1.attack();
+		if( Main.keysPressed[4] )
+			k1.jump();
 		
 		k1.shield( Main.keysPressed[3] );
 		
