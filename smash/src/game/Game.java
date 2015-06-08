@@ -114,4 +114,5 @@ public class Game extends DisplayObject {
 			for( int j=1 ; j<=24; j++ )
 				;//rect( (float)(i * 60  * Math.cos(frameCount()/200.0f * j )) + 400, (float)(i * 60 * Math.sin(frameCount()/200.0f * j)) + 350, i * 5, i* 5);
 	}
+	//asdf
 }
