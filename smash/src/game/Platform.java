@@ -6,23 +6,23 @@ import processing.core.PApplet;
 
 public class Platform extends DisplayObject {
 	
-	public Rectangle r = new Rectangle();
+	public int width, height;
 	
 	public Platform(int w, int h)
 	{
-		r.height = h;
-		r.width= w;
+		height = h;
+		width = w;
 	}
 	
 	public void draw()
 	{
-		fill(255, 25, 123);
-		rect( 0, 0, r.width, r.height);
-		
+		fill(72, 15, 179);
+		rect( 0, 0, width, height);
 	}
 	
 	public boolean contains(float x0, float y0)
 	{
-		return r.contains( x + x0, y + y0);
+		System.out.println( this.x + " " + width );
+		return x0 >= x && x0 <= x + width && y0 >= y && y0 <= y + height;
 	}
 }

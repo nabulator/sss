@@ -15,6 +15,8 @@ public abstract class DisplayObject {
 	private PApplet p;
 	private DisplayObject parent; //NULL if STAGE
 	public float x, y; //Center point! Not upper left corner!!!
+	public boolean visible = true;
+	public float alpha = 255.0f;
 	public ArrayList<DisplayObject> children = new ArrayList<DisplayObject>();
 	
 	//pseudo initializer
@@ -35,7 +37,8 @@ public abstract class DisplayObject {
 	
 	public void drawChildren()
 	{
-		draw();
+		if( this.visible )
+			draw();
 		for( int i=0; i<children.size(); i++)
 			children.get(i).drawChildren();
 		
@@ -92,7 +95,7 @@ public abstract class DisplayObject {
 		p.rect( parentsX() + x + x0, parentY() + y + y0, width, height);
 	}
 	
-	public void circle( int x0, int y0, int radius )
+	public void circle( int x0, int y0, float radius )
 	{
 		p.ellipse( parentsX() + x + x0, parentY() + y + y0, radius * 2, radius * 2);
 	}
@@ -104,7 +107,7 @@ public abstract class DisplayObject {
 	
 	public void fill( int r, int g, int b )
 	{
-		p.fill(r, g, b);
+		p.fill(r, g, b, this.alpha);
 	}
 	
 	public void bg( int r, int g, int b )

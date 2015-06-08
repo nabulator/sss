@@ -4,10 +4,10 @@ import java.awt.Color;
 
 public class Circle extends DisplayObject {
 	
-	public int radius;
+	public float radius;
 	public Color color;
 	
-	public Circle(int r0)
+	public Circle(float r0)
 	{
 		radius = r0;
 	}
@@ -15,6 +15,6 @@ public class Circle extends DisplayObject {
 	public void draw()
 	{
 		fill( color.getRed(), color.getGreen(), color.getBlue());
-		circle(0, 0, radius);
+		circle(0, 0, radius);		
 	}
 }
