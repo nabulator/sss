@@ -5,9 +5,9 @@ import java.awt.Color;
 public class Character extends DisplayObject
 {
 	public Circle hurtBox, hitBox, shieldBox, eye;
-	public int dmg;
+	public int dmg, jumpCount;
 	public boolean attack, special, onGround;
-	public int attackFrameTimer, specialFrameTimer, shieldFrameCount;
+	public int attackFrameTimer, specialFrameTimer, shieldFrameCount, jumpTimeout;
 
 	public float dx, dy;
 	public int dir, attackDir;
