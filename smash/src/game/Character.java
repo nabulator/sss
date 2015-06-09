@@ -8,6 +8,7 @@ public class Character extends DisplayObject
 	public int dmg;
 	public boolean attack, special, onGround;
 	public int attackFrameTimer, specialFrameTimer, shieldFrameCount;
+
 	public float dx, dy;
 	public int dir, attackDir;
 	
@@ -17,6 +18,7 @@ public class Character extends DisplayObject
 	//jabAttack specs
 	private static int JAB_START_POS = 30;
 	private static int SHIELD_MAX = 200;
+	private static int JUMP_TIMEOUT = 10;
 	
 	public Character()
 	{
@@ -74,6 +76,9 @@ public class Character extends DisplayObject
 			attack = false;
 		}
 		
+		if(jumpTimeout > 0)
+			jumpTimeout--;
+		
 	}
 	
 	public void attack()
@@ -104,6 +109,17 @@ public class Character extends DisplayObject
 		}
 		
 		shieldBox.radius = (RADIUS+10) * (shieldFrameCount / (float)SHIELD_MAX);
+	}
+	
+	public void jump()
+	{
+		if( jumpTimeout == 0 && jumpCount <= 1 )
+		{
+			dy = -10;
+			onGround = false;
+			jumpCount++;
+			jumpTimeout = JUMP_TIMEOUT;
+		}
 	}
 	
 	public void moveLeft()
