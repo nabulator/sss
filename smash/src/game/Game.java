@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
@@ -11,35 +12,33 @@ import processing.core.PApplet;
 public class Game extends DisplayObject {
 	
 	private Platform fd;
-	private Character k1;
+	private Character k1, k2;
 	
 	private Rectangle boundaries;
-	
-	private QuarterCircle rightQC, leftQC;
 	
 	public Game()
 	{
 		fd = new Platform(700, 120);
-		k1 = new Character();
-
+		k1 = new Character( fd, Color.CYAN );
+		k2 = new Character( fd, Color.PINK );
 		
-		final int HEIGHT = 650, WIDTH = 950;
-		boundaries = new Rectangle(0, 0, WIDTH, HEIGHT);
+		boundaries = new Rectangle(0, 0, Main.STAGE_WIDTH, Main.STAGE_WIDTH);
 	}
 	
 	public void init()
 	{
 		this.add( fd );
 		this.add( k1 );
+		this.add( k2 );
 		
 		fd.x = 150;
 		fd.y = 500;
 		
 		k1.x = 300;
 		k1.y = 300;
-
-		leftQC = new QuarterCircle(k1.RADIUS, fd.x, fd.y, fd.x - k1.RADIUS, fd.y - k1.RADIUS );
-		rightQC = new QuarterCircle(k1.RADIUS, fd.x + fd.width, fd.y, fd.x + fd.width + k1.RADIUS, fd.y - k1.RADIUS);
+		
+		k2.x = 700;
+		k2.y = 300;
 	}
 
 	/* (non-Javadoc)
@@ -47,48 +46,8 @@ public class Game extends DisplayObject {
 	 */
 	public void run()
 	{
-		//physics
-		//character collision			
-		if( k1.y + k1.RADIUS >= fd.y ) //under neath top line
-		{
-			if(k1.x > fd.x && k1.x < fd.x + fd.width) //in x range
-			{
-				if( k1.y + k1.RADIUS  < fd.y + k1.MAX_FALL_SPEED ) //the fall speed offset is to prevent ball from going crazy
-				{
-					k1.dy = 0;
-					k1.y = fd.y - k1.RADIUS;
-					k1.onGround = true;
-					k1.jumpCount = 0;
-				}
-				else 
-					k1.dx *= -1;
-			}
-			else
-				k1.onGround = false;
-		}
-		
-		//special corner case
-		if( leftQC.contains( k1.x , k1.y ) )
-		{
-			k1.x -= leftQC.horizontalShit( k1.y ) + k1.x - fd.x - 1;
-			k1.dx = - k1.ddx;
-		}
-		else if ( rightQC.contains(k1.x, k1.y) )
-		{
-			k1.x += rightQC.horizontalShit( k1.y ) - k1.x + fd.x + fd.width + 1;
-			k1.dx = k1.ddx;
-		}
-		
-		//side wallsi
-		if( k1.y - k1.RADIUS > fd.y )
-		{
-			float leftSide = k1.x - k1.RADIUS;
-			float rightSide = k1.x + k1.RADIUS;
-			if( leftSide < fd.x + fd.width && leftSide > fd.x + fd.width/2 )
-				k1.dx = k1.dx < k1.ddx ? k1.ddx : -2 * k1.dx;
-			else if ( rightSide > fd.x && rightSide < fd.x + fd.width/2 )
-				k1.dx = -3;
-		}
+		k1.checkCollision();
+		k2.checkCollision();
 		
 		if( Main.keysPressed[0] )
 			k1.moveLeft();
@@ -99,12 +58,23 @@ public class Game extends DisplayObject {
 		if( Main.keysPressed[4] )
 			k1.jump();
 		
+		if( Main.keysPressed2[0] )
+			k2.moveLeft();
+		if( Main.keysPressed2[1] )
+			k2.moveRight();
+		if( Main.keysPressed2[2] )
+			k2.attack();
+		if( Main.keysPressed2[4] )
+			k2.jump();
+		
 		k1.shield( Main.keysPressed[3] );
+		k2.shield( Main.keysPressed2[3] );
 		
 		//FOR RESET GAME
 		if( Main.reset )
 		{
 			resetCharacter(k1);
+			resetCharacter(k2);
 		}
 		
 		//KO DETECTION
@@ -113,6 +83,8 @@ public class Game extends DisplayObject {
 		{
 			resetCharacter(k1);
 		}
+		if( !boundaries.contains( new Point((int)k2.x, (int)k2.y)))
+			resetCharacter(k2);
 			
 	}
 	
