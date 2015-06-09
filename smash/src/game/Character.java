@@ -5,7 +5,7 @@ import java.awt.Color;
 public class Character extends DisplayObject
 {
 	public Circle hurtBox, hitBox, shieldBox, eye;
-	public int dmg, jumpCount;
+	public int dmg, stockCount, jumpCount;
 	public boolean attack, special, onGround;
 	public int attackFrameTimer, specialFrameTimer, shieldFrameCount, jumpTimeout;
 
@@ -23,6 +23,7 @@ public class Character extends DisplayObject
 	public Character()
 	{
 		dmg = 0;
+		stockCount = 4;
 		dir = 1;
 		hurtBox = new Circle(RADIUS);
 		hurtBox.color = Color.CYAN;
@@ -38,7 +39,7 @@ public class Character extends DisplayObject
 		
 		eye = new Circle(10);
 		eye.color = Color.BLACK;
-	
+		
 	}
 	
 	public void init()

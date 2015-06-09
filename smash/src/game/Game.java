@@ -12,6 +12,7 @@ public class Game extends DisplayObject {
 	
 	private Platform fd;
 	private Character k1;
+	private Stats k1Stats;
 	
 	private Rectangle boundaries;
 	
@@ -21,7 +22,7 @@ public class Game extends DisplayObject {
 	{
 		fd = new Platform(700, 120);
 		k1 = new Character();
-
+		k1Stats = new Stats(k1);
 		
 		final int HEIGHT = 650, WIDTH = 950;
 		boundaries = new Rectangle(0, 0, WIDTH, HEIGHT);
@@ -29,14 +30,19 @@ public class Game extends DisplayObject {
 	
 	public void init()
 	{
+		
 		this.add( fd );
 		this.add( k1 );
+		this.add(k1Stats);
 		
 		fd.x = 150;
 		fd.y = 500;
 		
 		k1.x = 300;
 		k1.y = 300;
+		
+		k1Stats.x = 50;
+		k1Stats.y = 100;
 
 		leftQC = new QuarterCircle(k1.RADIUS, fd.x, fd.y, fd.x - k1.RADIUS, fd.y - k1.RADIUS );
 		rightQC = new QuarterCircle(k1.RADIUS, fd.x + fd.width, fd.y, fd.x + fd.width + k1.RADIUS, fd.y - k1.RADIUS);
@@ -112,6 +118,9 @@ public class Game extends DisplayObject {
 		if(!boundaries.contains(k1Pos))
 		{
 			resetCharacter(k1);
+			k1.stockCount--;
+			if(k1.stockCount == 0)
+				k1.visible = false;
 		}
 			
 	}

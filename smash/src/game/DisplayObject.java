@@ -100,6 +100,16 @@ public abstract class DisplayObject {
 		p.ellipse( parentsX() + x + x0, parentY() + y + y0, radius * 2, radius * 2);
 	}
 	
+	public void textSize(float size)
+	{
+		p.textSize(size);
+	}
+	
+	public void text(String text, float x0, float y0)
+	{
+		p.text(text, parentsX() + x + x0, parentY() + y + y0);
+	}
+	
 	public void fill( int rgb )
 	{
 		p.fill( rgb );
