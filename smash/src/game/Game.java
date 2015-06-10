@@ -177,7 +177,7 @@ public class Game extends DisplayObject {
 				Color c1 = new Color(j, j*9, j*5);
 				Color c2 = new Color(j*8, (int)(j * 0.1), j*7);
 				fill( lerp(c1.getRGB(), c2.getRGB(), (float)Math.sin( tk+=0.000001f)));
-				//rect( (float)(i * 60  * Math.cos(frameCount()/200.0f * j )) + center.x, (float)(i * 60 * Math.sin(frameCount()/200.0f * j)) + center.y, i * 5, i* 5);
+				rect( (float)(i * 60  * Math.cos(frameCount()/200.0f * j )) + center.x, (float)(i * 60 * Math.sin(frameCount()/200.0f * j)) + center.y, i * 5, i* 5);
 			}
 	}
 }

@@ -1,5 +1,7 @@
 package game;
 
+import javax.swing.JOptionPane;
+
 import processing.core.PApplet;
 
 public class Main extends PApplet{
@@ -11,6 +13,9 @@ public class Main extends PApplet{
 	
 	public Main()
 	{
+		Object[] opts = {"Local", "NetworkHost", "NetworkClient"};
+		int i = JOptionPane.showOptionDialog(null, "What kind of game?", "Super Smash Sisters", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
+		
 		g = new Game();
 		g.initStage(this);
 		
