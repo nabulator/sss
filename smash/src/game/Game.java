@@ -106,6 +106,7 @@ public class Game extends DisplayObject {
 		}
 		if( !boundaries.contains( new Point((int)k2.x, (int)k2.y)))
 		{
+			k2.stockCount--;
 			resetCharacter(k2);
 			if(k2.stockCount <= 0)
 				k2.visible = false;

@@ -28,8 +28,8 @@ public class Circle extends DisplayObject {
 		if( other.visible == false || this.visible == false)
 			return false;
 		
-		float changeX = this.parentX() + this.x- other.parentX() - other.x;
-		float changeY = this.parentY() + this.y- other.parentY() - other.y;
+		float changeX = this.absoluteX() - other.absoluteX();
+		float changeY = this.absoluteY() - other.absoluteY();
 		
 		return Math.sqrt( changeX * changeX + changeY * changeY ) <= this.radius + other.radius;
 	}

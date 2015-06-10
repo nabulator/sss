@@ -94,13 +94,37 @@ public abstract class DisplayObject {
 	 * This makes sprite movement easier...
 	 */
 	
-	public float parentX()
+	private float parentX()
 	{
 		return parent != null ? parent.x : 0;
 	}
-	public float parentY()
+	private float parentY()
 	{
 		return parent != null ? parent.y : 0;
+	}
+	
+	//GETS ABSOLUTE VALUES RELATIVE TO STAGE
+	protected float absoluteX()
+	{
+		DisplayObject d = this;
+		float finalX = this.x;
+		while( d.parent != null )
+		{
+			finalX += d.parent.x;
+			d = d.parent;
+		}
+		return finalX;
+	}
+	protected float absoluteY()
+	{
+		DisplayObject d = this;
+		float finalY = this.y;
+		while( d.parent != null )
+		{
+			finalY += d.parent.y;
+			d = d.parent;
+		}
+		return finalY;
 	}
 	
 	public void rect( float x0, float y0, float width, float height )

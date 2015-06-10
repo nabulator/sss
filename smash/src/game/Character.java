@@ -3,20 +3,21 @@ package game;
 import java.awt.Color;
 
 import basicMath.QuarterCircle;
+import basicMath.Vector2D;
 
 public class Character extends DisplayObject
 {
 	public Circle hurtBox, hitBox, shieldBox, eye;
 	public int dmg, stockCount, jumpCount;
-	public boolean attack, special, onGround;
+	public boolean attack, special, onGround, attackLanded;
 	public int attackFrameTimer, specialFrameTimer, shieldFrameCount, jumpTimeout;
 	public Color color;
 
 	public float dx, dy;
 	public int dir, attackDir;
 	
-	public final static float GRAVITY = 0.55f,  ddx = 1.5f, FRICTION_DAMP = 0.2f;
-	public final static int RADIUS = 40, MAX_HOR_SPEED = 12, MAX_FALL_SPEED = 10;
+	public final static float GRAVITY = 1.25f,  ddx = 2.5f, FRICTION_DAMP = 0.2f;
+	public final static int RADIUS = 30, MAX_HOR_SPEED = 18, MAX_FALL_SPEED = 13;
 	
 	//outside references
 	private Platform fd;
@@ -37,11 +38,11 @@ public class Character extends DisplayObject
 		color = c;
 		this.fd = pt;
 		
-		hitBox = new Circle(20);
+		hitBox = new Circle(17);
 		hitBox.color = Color.GREEN;
 		hitBox.x = JAB_START_POS;
 		
-		shieldBox = new Circle(RADIUS + 10);
+		shieldBox = new Circle(RADIUS + 15);
 		shieldBox.color = new Color( 0xbc0f5a );
 		shieldBox.alpha = 166.0f;
 		shieldFrameCount = SHIELD_MAX;
@@ -102,7 +103,7 @@ public class Character extends DisplayObject
 		{
 			if(this.x > fd.x && this.x < fd.x + fd.width) //in x range
 			{
-				if( this.y + this.RADIUS  < fd.y + this.MAX_FALL_SPEED ) //the fall speed offset is to prevent ball from going crazy
+				if( this.y + this.RADIUS  < fd.y + this.MAX_FALL_SPEED + 20 ) //the fall speed offset is to prevent ball from going crazy
 				{
 					this.dy = 0;
 					this.y = fd.y - this.RADIUS;
@@ -145,7 +146,22 @@ public class Character extends DisplayObject
 		if( ! this.hitBox.isIntersecting( other.shieldBox ) )
 		{
 			if( this.hitBox.isIntersecting( other.hurtBox ) )
-				other.dmg += 2;
+				if( ! attackLanded )
+				{
+					other.dmg += 4 + (int)(Math.random() * 2);
+					attackLanded = true;
+					//knockback
+					Vector2D force = new Vector2D( this.hurtBox.absoluteX() - other.hitBox.absoluteX(), this.hurtBox.absoluteY() - other.hitBox.absoluteY());
+					force = force.direction().scale( other.dmg / 5.0f );
+					other.dx = - force.x;
+					other.dy = Math.abs(force.y);
+				}
+				
+		}
+		
+		if( this.hurtBox.isIntersecting( other.hurtBox) )
+		{
+			other.dx += this.dx / 10;
 		}
 	}
 	
@@ -154,17 +170,20 @@ public class Character extends DisplayObject
 		if( attackFrameTimer == 0 && shieldBox.visible == false)
 		{
 			attack = true;
-			attackFrameTimer = 15;
+			attackFrameTimer = 12;
 		}
 		
 	}
 	
 	public void shield( boolean isPressed )
 	{
-		if( isPressed && attackFrameTimer == 0 )
+		if( isPressed && onGround && attackFrameTimer == 0 )
 		{
 			if( shieldFrameCount > 0 )
+			{
 				shieldFrameCount--;
+				dx = 0;
+			}
 			else
 				;//;STUNNNED
 			shieldBox.visible = true;
@@ -183,7 +202,7 @@ public class Character extends DisplayObject
 	{
 		if( jumpTimeout == 0 && jumpCount <= 1 )
 		{
-			dy = -10;
+			dy = -17;
 			onGround = false;
 			jumpCount++;
 			jumpTimeout = JUMP_TIMEOUT;
@@ -192,14 +211,14 @@ public class Character extends DisplayObject
 	
 	public void moveLeft()
 	{
-		if( dx > -MAX_HOR_SPEED )
+		if( dx > -MAX_HOR_SPEED && !shieldBox.visible)
 			dx -= ddx;
 		dir = -1;
 	}
 	
 	public void moveRight()
 	{
-		if( dx < MAX_HOR_SPEED )
+		if( dx < MAX_HOR_SPEED && !shieldBox.visible)
 			dx += ddx;
 		dir = 1;
 	}
@@ -210,12 +229,15 @@ public class Character extends DisplayObject
 		hitBox.visible = attackFrameTimer > 0;
 		
 		if(attackFrameTimer == 0)
+		{
 			attackDir = dir;
+			attackLanded = false;
+		}
 		
-		if( attackFrameTimer >= 12 )
-			hitBox.x += 15 * attackDir;
+		if( attackFrameTimer >= 9 )
+			hitBox.x += 20 * attackDir;
 		else if( attackFrameTimer > 0 )
-			hitBox.x -= 5*attackDir;
+			hitBox.x -= 8*attackDir;
 		else
 			hitBox.x = JAB_START_POS*attackDir;
 		
