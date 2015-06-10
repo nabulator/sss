@@ -10,6 +10,7 @@ public class Character extends DisplayObject
 	public int dmg, stockCount, jumpCount;
 	public boolean attack, special, onGround;
 	public int attackFrameTimer, specialFrameTimer, shieldFrameCount, jumpTimeout;
+	public Color color;
 
 	public float dx, dy;
 	public int dir, attackDir;
@@ -33,6 +34,7 @@ public class Character extends DisplayObject
 		dir = 1;
 		hurtBox = new Circle(RADIUS);
 		hurtBox.color = c;
+		color = c;
 		this.fd = pt;
 		
 		hitBox = new Circle(20);
@@ -135,6 +137,15 @@ public class Character extends DisplayObject
 				this.dx = this.dx < this.ddx ? this.ddx : -2 * this.dx;
 			else if ( rightSide > fd.x && rightSide < fd.x + fd.width/2 )
 				this.dx = -3;
+		}
+	}
+	
+	public void hitOtherCharacters(Character other)
+	{
+		if( ! this.hitBox.isIntersecting( other.shieldBox ) )
+		{
+			if( this.hitBox.isIntersecting( other.hurtBox ) )
+				other.dmg += 2;
 		}
 	}
 	

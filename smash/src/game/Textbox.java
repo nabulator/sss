@@ -9,7 +9,7 @@ public class Textbox extends DisplayObject
 	public Textbox(String s)
 	{
 		text = s;
-		size = 32;
+		size = 24;
 	}
 	
 	public void draw()

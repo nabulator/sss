@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 
 import basicMath.QuarterCircle;
@@ -8,16 +9,18 @@ import processing.core.PApplet;
 public class Platform extends DisplayObject {
 	
 	public int width, height;
+	public Color color;
 	
 	public Platform(int w, int h)
 	{
 		height = h;
 		width = w;
+		color = new Color(75, 15, 179);
 	}
 	
 	public void draw()
 	{
-		fill(72, 15, 179);
+		fill(color.getRed(), color.getGreen(), color.getBlue());
 		rect( 0, 0, width, height);
 	}
 	

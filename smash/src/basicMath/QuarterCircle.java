@@ -31,7 +31,7 @@ public class QuarterCircle {
 	public float horizontalShit(float y1)
 	{
 		float ydis = this.y - y1;
-		System.out.println("sqrt " + (Math.pow(radius, 2) - Math.pow(ydis, 2)));
+		//System.out.println("sqrt " + (Math.pow(radius, 2) - Math.pow(ydis, 2)));
 		return (float) Math.sqrt( radius*radius - ydis * ydis);
 	}
 	

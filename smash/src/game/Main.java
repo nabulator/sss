@@ -50,11 +50,13 @@ public class Main extends PApplet{
 			
 			case 'J': keysPressed2[0] = true; break;
 			case 'L': keysPressed2[1] = true; break;
-			case '\'': keysPressed2[2] = true; break;
+			case (char)222: keysPressed2[2] = true; break; //SINGLE QUOTE
 			case ';': keysPressed2[3] = true; break;
 			case 'P': keysPressed2[4] = true; break;
 			
 			case 112: reset = true; break;
+			
+			
 		}
 	}
 	
@@ -75,7 +77,7 @@ public class Main extends PApplet{
 			
 			case 'J': keysPressed2[0] = false; break;
 			case 'L': keysPressed2[1] = false; break;
-			case '\'': keysPressed2[2] = false; break;
+			case (char)222: keysPressed2[2] = false; break;  //has comptability issues with my linux
 			case ';': keysPressed2[3] = false; break;
 			case 'P': keysPressed2[4] = false; break;
 			

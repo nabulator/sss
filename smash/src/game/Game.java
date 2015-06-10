@@ -12,7 +12,7 @@ import processing.core.PApplet;
 public class Game extends DisplayObject {
 	
 	private Platform fd;
-	private Stats k1Stats;
+	private Stats k1Stats, k2Stats;
 	private Character k1, k2;	
 	private Rectangle boundaries;
 	
@@ -23,32 +23,33 @@ public class Game extends DisplayObject {
 		k2 = new Character( fd, Color.PINK );
 		
 		k1Stats = new Stats(k1);
+		k2Stats = new Stats(k2);
 		
 		boundaries = new Rectangle(0, 0, Main.STAGE_WIDTH, Main.STAGE_HEIGHT);
 	}
 	
 	public void init()
 	{
-		
 		this.add( fd );
 		this.add( k1 );
-		this.add(k1Stats);
-
 		this.add( k2 );
+		this.add(k1Stats);
+		this.add(k2Stats);	
 		
-		fd.x = 150;
+		fd.x = ( Main.STAGE_WIDTH - fd.width )/ 2.0f;
 		fd.y = 500;
 		
 		k1.x = 300;
 		k1.y = 300;
-		
-
-		k1Stats.x = 50;
-		k1Stats.y = 100;
 
 		k2.x = 700;
 		k2.y = 300;
-
+		
+		int statsPadding = 140;
+		k1Stats.x = 0 + statsPadding;
+		k1Stats.y = 530;
+		k2Stats.x = Main.STAGE_WIDTH - statsPadding - 140;
+		k2Stats.y = 530;
 	}
 
 	/* (non-Javadoc)
@@ -58,6 +59,9 @@ public class Game extends DisplayObject {
 	{
 		k1.checkCollision();
 		k2.checkCollision();
+		
+		k1.hitOtherCharacters(k2);
+		k2.hitOtherCharacters(k1);
 		
 		if( Main.keysPressed[0] )
 			k1.moveLeft();
@@ -91,13 +95,21 @@ public class Game extends DisplayObject {
 		Point k1Pos = new Point((int)k1.x, (int)k1.y);
 		if(!boundaries.contains(k1Pos))
 		{
-			resetCharacter(k1);
 			k1.stockCount--;
-			if(k1.stockCount == 0)
+			resetCharacter(k1);
+			if(k1.stockCount <= 0)
+			{ 
+				System.out.println("ded + " + k1.visible);
 				k1.visible = false;
+			}
+				
 		}
 		if( !boundaries.contains( new Point((int)k2.x, (int)k2.y)))
+		{
 			resetCharacter(k2);
+			if(k2.stockCount <= 0)
+				k2.visible = false;
+		}
 			
 	}
 	

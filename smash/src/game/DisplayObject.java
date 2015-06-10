@@ -29,6 +29,16 @@ public abstract class DisplayObject {
 		children.add(d);
 	}
 	
+	public void remove(int index)
+	{
+		children.remove(index);
+	}
+	
+	public int totalChildren()
+	{
+		return children.size();
+	}
+	
 	public void initStage(PApplet p)
 	{
 		this.p = p;
@@ -38,9 +48,12 @@ public abstract class DisplayObject {
 	public void drawChildren()
 	{
 		if( this.visible )
+		{
 			draw();
-		for( int i=0; i<children.size(); i++)
-			children.get(i).drawChildren();
+			for( int i=0; i<children.size(); i++)
+				children.get(i).drawChildren();
+		}
+	
 		
 	}
 	
@@ -81,23 +94,23 @@ public abstract class DisplayObject {
 	 * This makes sprite movement easier...
 	 */
 	
-	private float parentsX()
+	public float parentX()
 	{
 		return parent != null ? parent.x : 0;
 	}
-	private float parentY()
+	public float parentY()
 	{
 		return parent != null ? parent.y : 0;
 	}
 	
 	public void rect( float x0, float y0, float width, float height )
 	{
-		p.rect( parentsX() + x + x0, parentY() + y + y0, width, height);
+		p.rect( parentX() + x + x0, parentY() + y + y0, width, height);
 	}
 	
 	public void circle( int x0, int y0, float radius )
 	{
-		p.ellipse( parentsX() + x + x0, parentY() + y + y0, radius * 2, radius * 2);
+		p.ellipse( parentX() + x + x0, parentY() + y + y0, radius * 2, radius * 2);
 	}
 	
 	public void textSize(float size)
@@ -107,7 +120,8 @@ public abstract class DisplayObject {
 	
 	public void text(String text, float x0, float y0)
 	{
-		p.text(text, parentsX() + x + x0, parentY() + y + y0);
+		p.textAlign( p.CENTER );
+		p.text(text, parentX() + x + x0, parentY() + y + y0);
 	}
 	
 	public void fill( int rgb )
