@@ -121,12 +121,19 @@ public class Game extends DisplayObject {
 		c.y = 300;
 	}
 	
+	static final Point center = new Point(Main.STAGE_WIDTH/2, Main.STAGE_HEIGHT/2);
+	static float tk;
 	public void draw()
 	{
 		fill(81, 252, 70);
 		for( int i=0; i<10; i++)
 			for( int j=1 ; j<=24; j++ )
-				;//rect( (float)(i * 60  * Math.cos(frameCount()/200.0f * j )) + 400, (float)(i * 60 * Math.sin(frameCount()/200.0f * j)) + 350, i * 5, i* 5);
+			{
+				Color c1 = new Color(j, j*9, j*5);
+				Color c2 = new Color(j*8, (int)(j * 0.1), j*7);
+				fill( lerp(c1.getRGB(), c2.getRGB(), (float)Math.sin( tk+=0.000001f)));
+				System.out.println(tk);
+				rect( (float)(i * 60  * Math.cos(frameCount()/200.0f * j )) + center.x, (float)(i * 60 * Math.sin(frameCount()/200.0f * j)) + center.y, i * 5, i* 5);
+			}
 	}
-	//asdf
 }

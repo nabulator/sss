@@ -158,6 +158,11 @@ public abstract class DisplayObject {
 		p.fill(r, g, b, this.alpha);
 	}
 	
+	public int lerp(int c1, int c2, float f)
+	{
+		return p.lerpColor(c1, c2, f);
+	}
+	
 	public void bg( int r, int g, int b )
 	{
 		p.background(r, g, b);
