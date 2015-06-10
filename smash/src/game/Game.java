@@ -22,7 +22,7 @@ public class Game extends DisplayObject {
 		k1 = new Character( fd, Color.CYAN );
 		k2 = new Character( fd, Color.PINK );
 		
-		boundaries = new Rectangle(0, 0, Main.STAGE_WIDTH, Main.STAGE_WIDTH);
+		boundaries = new Rectangle(0, 0, Main.STAGE_WIDTH, Main.STAGE_HEIGHT);
 	}
 	
 	public void init()
