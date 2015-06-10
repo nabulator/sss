@@ -2,6 +2,8 @@ package game;
 
 import java.awt.Color;
 
+import basicMath.QuarterCircle;
+
 public class Character extends DisplayObject
 {
 	public Circle hurtBox, hitBox, shieldBox, eye;
@@ -15,18 +17,23 @@ public class Character extends DisplayObject
 	public final static float GRAVITY = 0.55f,  ddx = 1.5f, FRICTION_DAMP = 0.2f;
 	public final static int RADIUS = 40, MAX_HOR_SPEED = 12, MAX_FALL_SPEED = 10;
 	
+	//outside references
+	private Platform fd;
+	private QuarterCircle rightQC, leftQC;
+	
 	//jabAttack specs
 	private static int JAB_START_POS = 30;
 	private static int SHIELD_MAX = 200;
 	private static int JUMP_TIMEOUT = 10;
 	
-	public Character()
+	public Character(Platform pt, Color c)
 	{
 		dmg = 0;
 		stockCount = 4;
 		dir = 1;
 		hurtBox = new Circle(RADIUS);
-		hurtBox.color = Color.CYAN;
+		hurtBox.color = c;
+		this.fd = pt;
 		
 		hitBox = new Circle(20);
 		hitBox.color = Color.GREEN;
@@ -37,7 +44,7 @@ public class Character extends DisplayObject
 		shieldBox.alpha = 166.0f;
 		shieldFrameCount = SHIELD_MAX;
 		
-		eye = new Circle(10);
+		eye = new Circle(5);
 		eye.color = Color.BLACK;
 		
 	}
@@ -55,6 +62,9 @@ public class Character extends DisplayObject
 		
 		eye.x = 20;
 		eye.y = -10;
+		
+		leftQC = new QuarterCircle( RADIUS, fd.x, fd.y, fd.x - RADIUS, fd.y - RADIUS );
+		rightQC = new QuarterCircle( RADIUS, fd.x + fd.width, fd.y, fd.x + fd.width + RADIUS, fd.y - RADIUS);
 	}
 	
 	public void run()
@@ -80,6 +90,52 @@ public class Character extends DisplayObject
 		if(jumpTimeout > 0)
 			jumpTimeout--;
 		
+	}
+	
+	public void checkCollision()
+	{
+		//physics
+		//character collision			
+		if( this.y + this.RADIUS >= fd.y ) //under neath top line
+		{
+			if(this.x > fd.x && this.x < fd.x + fd.width) //in x range
+			{
+				if( this.y + this.RADIUS  < fd.y + this.MAX_FALL_SPEED ) //the fall speed offset is to prevent ball from going crazy
+				{
+					this.dy = 0;
+					this.y = fd.y - this.RADIUS;
+					this.onGround = true;
+					this.jumpCount = 0;
+				}
+				else 
+					this.dx *= -1;
+			}
+			else
+				this.onGround = false;
+		}
+		
+		//special corner case
+		if( leftQC.contains( this.x , this.y ) )
+		{
+			this.x -= leftQC.horizontalShit( this.y ) + this.x - fd.x - 1;
+			this.dx = - this.ddx;
+		}
+		else if ( rightQC.contains(this.x, this.y) )
+		{
+			this.x += rightQC.horizontalShit( this.y ) - this.x + fd.x + fd.width + 1;
+			this.dx = this.ddx;
+		}
+		
+		//side walls
+		if( this.y - this.RADIUS > fd.y )
+		{
+			float leftSide = this.x - this.RADIUS;
+			float rightSide = this.x + this.RADIUS;
+			if( leftSide < fd.x + fd.width && leftSide > fd.x + fd.width/2 )
+				this.dx = this.dx < this.ddx ? this.ddx : -2 * this.dx;
+			else if ( rightSide > fd.x && rightSide < fd.x + fd.width/2 )
+				this.dx = -3;
+		}
 	}
 	
 	public void attack()

@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Rectangle;
 
+import basicMath.QuarterCircle;
 import processing.core.PApplet;
 
 public class Platform extends DisplayObject {
