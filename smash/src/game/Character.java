@@ -39,7 +39,7 @@ public class Character extends DisplayObject
 		this.fd = pt;
 		
 		hitBox = new Circle(17);
-		hitBox.color = Color.GREEN;
+		hitBox.color = this.color;
 		hitBox.x = JAB_START_POS;
 		
 		shieldBox = new Circle(RADIUS + 15);

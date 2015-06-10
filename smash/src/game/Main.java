@@ -6,7 +6,7 @@ public class Main extends PApplet{
 
 	private Game g;
 	private Platform stage;
-	public static boolean keysPressed[], keysPressed2[], reset;
+	public static boolean keysPressed[], keysPressed2[], reset, spacePressed;
 	public static int STAGE_HEIGHT=680, STAGE_WIDTH=960;
 	
 	public Main()
@@ -56,7 +56,7 @@ public class Main extends PApplet{
 			
 			case 112: reset = true; break;
 			
-			
+			case ' ': spacePressed = true; break;
 		}
 	}
 	
@@ -82,6 +82,8 @@ public class Main extends PApplet{
 			case ']': keysPressed2[4] = false; break;
 			
 			case 112: reset = false; break;
+			
+			case ' ': spacePressed = false; break;
 		}
 	}
 
