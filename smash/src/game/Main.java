@@ -59,7 +59,6 @@ public class Main extends PApplet{
 			
 			case 112: reset = true; break;
 			
-			
 		}
 	}
 	
