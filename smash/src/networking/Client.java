@@ -8,7 +8,9 @@ import java.util.Scanner;
 
 public class Client {
 
-	private Socket s;
+	private RemoteController rc;
+	private Scanner scan;
+	private PrintWriter pw;
 	
 	public Client() throws UnknownHostException, IOException
 	{
@@ -16,9 +18,33 @@ public class Client {
 		int port = 16002;
 		
 		Socket s = new Socket(ip, port);
-		Scanner scan = new Scanner( s.getInputStream() );
-		PrintWriter pw = new PrintWriter( s.getOutputStream() );
+		scan = new Scanner( s.getInputStream() );
+		pw = new PrintWriter( s.getOutputStream() );
 		
 		System.out.println("connected! ");
+	}
+	
+	public void setRC(RemoteController rm)
+	{
+		rc =rm;
+	}
+	
+	public void sendControls()
+	{
+		boolean[] cc = rc.getP2Controls();
+		
+		pw.print( rc.frameCount );
+		for(int j=0; j<cc.length; j++)
+			pw.print( cc[j] );
+		pw.flush();
+	}
+	
+	public void getControls()
+	{
+		long theirCount = scan.nextLong();
+		boolean newData[] = new boolean[5];
+		for(int h=0; h<newData.length ; h++ )
+			newData[h] = scan.nextBoolean();
+		rc.setP1Controls(newData);
 	}
 }

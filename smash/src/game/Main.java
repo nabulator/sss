@@ -10,6 +10,7 @@ public class Main extends PApplet{
 	private Platform stage;
 	public static boolean keysPressed[], keysPressed2[], reset;
 	public static int STAGE_HEIGHT=680, STAGE_WIDTH=960;
+	public static boolean MULTIPLAYER = false, HOST = false;
 	
 	public Main()
 	{		
@@ -26,7 +27,9 @@ public class Main extends PApplet{
 		frameRate(30);
 		size(STAGE_WIDTH, STAGE_HEIGHT);
 		g.initChildren();
-
+		
+		if(MULTIPLAYER)
+			this.noLoop();
 	}
 	
 	public void draw()
@@ -43,14 +46,24 @@ public class Main extends PApplet{
 	public void keyPressed()
 	{
 		char keyCode = (char)this.keyCode;
-		switch(keyCode)
+		
+		if( (MULTIPLAYER && HOST) || ! MULTIPLAYER )
 		{
+			switch(keyCode)
+			{
+			
 			case 'A': keysPressed[0] = true; break;
 			case 'D': keysPressed[1] = true; break;
 			case 'G': keysPressed[2] = true; break;
 			case 'F': keysPressed[3] = true; break;
 			case 'Y': keysPressed[4] = true; break;
-			
+			}
+		}
+		
+		if( (MULTIPLAYER && ! HOST) || ! MULTIPLAYER )
+		{
+			switch(keyCode)
+			{
 			case 'J': keysPressed2[0] = true; break;
 			case 'L': keysPressed2[1] = true; break;
 			case (char)222: keysPressed2[2] = true; break; //SINGLE QUOTE
@@ -59,6 +72,7 @@ public class Main extends PApplet{
 			
 			case 112: reset = true; break;
 			
+			}
 		}
 	}
 	
@@ -76,7 +90,10 @@ public class Main extends PApplet{
 			case 'G': keysPressed[2] = false; break;
 			case 'F': keysPressed[3] = false; break;
 			case 'Y': keysPressed[4] = false; break;
-			
+		}
+		
+		switch(keyCode)
+		{
 			case 'J': keysPressed2[0] = false; break;
 			case 'L': keysPressed2[1] = false; break;
 			case (char)222: keysPressed2[2] = false; break;  //has comptability issues with my linux

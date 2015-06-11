@@ -14,9 +14,9 @@ public class EmbededGame extends Frame{
 	/*
 	 * THE REAL GAME!
 	 */
-	public EmbededGame()
+	public EmbededGame(String ss)
 	{
-		super("Not a smash ripoff | v 0.1 ");
+		super("SMASH BALLS| Not a smash ripoff | v 0.1 | " + ss);
 		this.setLayout(new BorderLayout());
 		m = new Main();
 		this.add(m, BorderLayout.CENTER);
