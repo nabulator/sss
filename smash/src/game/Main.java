@@ -12,10 +12,8 @@ public class Main extends PApplet{
 	public static int STAGE_HEIGHT=680, STAGE_WIDTH=960;
 	
 	public Main()
-	{
-		Object[] opts = {"Local", "NetworkHost", "NetworkClient"};
-		int i = JOptionPane.showOptionDialog(null, "What kind of game?", "Super Smash Sisters", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
-		
+	{		
+		super();
 		g = new Game();
 		g.initStage(this);
 		
