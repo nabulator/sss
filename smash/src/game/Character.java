@@ -9,8 +9,8 @@ public class Character extends DisplayObject
 {
 	public Circle hurtBox, hitBox, shieldBox, eye;
 	public int dmg, stockCount, jumpCount;
-	public boolean attack, special, onGround, attackLanded;
-	public int attackFrameTimer, specialFrameTimer, shieldFrameCount, jumpTimeout;
+	public boolean attack, special, onGround, attackLanded, stunned;
+	public int attackFrameTimer, specialFrameTimer, shieldFrameCount, jumpTimeout, stunTimeout;
 	public Color color;
 
 	public float dx, dy;
@@ -93,6 +93,17 @@ public class Character extends DisplayObject
 		if(jumpTimeout > 0)
 			jumpTimeout--;
 		
+		if(stunTimeout > 0)
+		{
+			stunTimeout--;
+			hurtBox.color = Color.RED;
+		}
+		if(stunTimeout == 0)
+		{
+			stunned = false;
+			hurtBox.color = hitBox.color;
+		}
+		
 	}
 	
 	public void checkCollision()
@@ -152,9 +163,11 @@ public class Character extends DisplayObject
 					attackLanded = true;
 					//knockback
 					Vector2D force = new Vector2D( this.hurtBox.absoluteX() - other.hitBox.absoluteX(), this.hurtBox.absoluteY() - other.hitBox.absoluteY());
-					force = force.direction().scale( other.dmg / 5.0f );
+					force = force.direction().scale( other.dmg / 2.0f );
 					other.dx = - force.x;
-					other.dy = Math.abs(force.y);
+					other.dy = - Math.abs(force.y);
+					other.stunned = true;
+					other.stunTimeout = 10;
 				}
 				
 		}
@@ -167,7 +180,7 @@ public class Character extends DisplayObject
 	
 	public void attack()
 	{
-		if( attackFrameTimer == 0 && shieldBox.visible == false)
+		if( attackFrameTimer == 0 && shieldBox.visible == false && !stunned)
 		{
 			attack = true;
 			attackFrameTimer = 12;
@@ -177,7 +190,7 @@ public class Character extends DisplayObject
 	
 	public void shield( boolean isPressed )
 	{
-		if( isPressed && onGround && attackFrameTimer == 0 )
+		if( isPressed && onGround && attackFrameTimer == 0 && !stunned)
 		{
 			if( shieldFrameCount > 0 )
 			{
@@ -200,7 +213,7 @@ public class Character extends DisplayObject
 	
 	public void jump()
 	{
-		if( jumpTimeout == 0 && jumpCount <= 1 )
+		if( jumpTimeout == 0 && jumpCount <= 1 && !stunned)
 		{
 			dy = -17;
 			onGround = false;
@@ -211,16 +224,22 @@ public class Character extends DisplayObject
 	
 	public void moveLeft()
 	{
-		if( dx > -MAX_HOR_SPEED && !shieldBox.visible)
-			dx -= ddx;
-		dir = -1;
+		if(!stunned)
+		{
+			if( dx > -MAX_HOR_SPEED && !shieldBox.visible)
+				dx -= ddx;
+			dir = -1;
+		}
 	}
 	
 	public void moveRight()
 	{
-		if( dx < MAX_HOR_SPEED && !shieldBox.visible)
-			dx += ddx;
-		dir = 1;
+		if(!stunned)
+		{
+			if( dx < MAX_HOR_SPEED && !shieldBox.visible)
+				dx += ddx;
+			dir = 1;
+		}
 	}
 	
 	public void draw()
