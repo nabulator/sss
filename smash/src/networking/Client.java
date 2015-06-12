@@ -36,7 +36,7 @@ public class Client {
 		System.out.println("client sending..." + clientfc);
 		boolean[] cc = rc.getP2Controls();
 		
-		pw.println( rc.frameCount );
+		pw.println( this.clientfc );
 		for(int j=0; j<cc.length; j++)
 			pw.println( cc[j] );
 		pw.flush();

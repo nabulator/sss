@@ -5,7 +5,6 @@ import game.Main;
 public class RemoteController {
 	
 	private static Main m;
-	public static long frameCount;
 	public RemoteController(Main m)
 	{
 		this.m = m;
