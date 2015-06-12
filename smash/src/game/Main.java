@@ -73,12 +73,16 @@ public class Main extends PApplet{
 			case 'S': keysPressed2[3] = true; break;
 			case '=': keysPressed2[4] = true; break;
 			
-			case 112: reset = true; break;
-			case ' ': spacePressed = true; break;
-
+			
 			}
 
 		}
+		
+		switch(keyCode)
+		{
+			case ' ': spacePressed = true; break;
+			case 112: reset = true; break;
+		}	
 		lockKeys = false;
 	}
 	
@@ -98,19 +102,15 @@ public class Main extends PApplet{
 				case 'J': keysPressed[2] = false; break;
 				case 'F': keysPressed[3] = false; break;
 				case 'Y': keysPressed[4] = false; break;
-			}
-			
-			switch(keyCode)
-			{
+		
 				case 'H': keysPressed2[0] = false; break;
 				case 'N': keysPressed2[1] = false; break;
 				case '-': keysPressed2[2] = false; break;  //has comptability issues with my linux
 				case 'S': keysPressed2[3] = false; break;
 				case '=': keysPressed2[4] = false; break;
 				
+				case ' ': spacePressed = false; break; 
 				case 112: reset = false; break;
-				
-				case ' ': spacePressed = false; break;
 			}
 		}
 		

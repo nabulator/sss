@@ -16,7 +16,7 @@ public class Game extends DisplayObject {
 	private Character k1, k2;	
 	private Rectangle boundaries;
 	private boolean gameOver = false;
-	private int spaceCount;
+	private static int spaceCount;
 	
 	public final static int P1_INITIAL_X = 300, P2_INITIAL_X = 700;
 	
@@ -123,28 +123,40 @@ public class Game extends DisplayObject {
 				}
 			}
 		}
+		
 		if(gameOver)
 		{
-			Textbox replay = new Textbox("Press space to play again");
-			this.add(replay);
-			replay.x = center.x;
-			replay.y = center.y + 30;
-			
-			if(Main.spacePressed)
-				spaceCount++;
-			
-			/**
-			 * FIX THIS
-			 */
-			if(spaceCount > 0)
+			if( !Main.MULTIPLAYER )
 			{
-				this.children.clear();
-				
-				this.init();
-				this.initChildren();
+				Textbox replay = new Textbox("Press space to play again");
+				this.add(replay);
+				replay.x = center.x;
+				replay.y = center.y + 30;
+			
+				if(Main.spacePressed)
+					spaceCount++;
+			
+				/**
+				 * FIX THIS
+				 */
+				if(spaceCount > 0)
+				{
+					this.children.clear();
+					this.init();
+					this.initChildren();
+				}
 			}
+			else
+			{
+				Textbox replay = new Textbox("Haha! You can't replay in Network mode, sucker \n-developers");
+				this.add(replay);
+				replay.x = center.x;
+				replay.y = center.y + 30;
+			}
+	
 		}
 	}
+			
 	
 	public static void resetCharacter(Character c, int initialX)
 	{
