@@ -8,7 +8,7 @@ public class Game extends DisplayObject {
 	
 	private Platform fd;
 	private Stats k1Stats, k2Stats;
-	private Character k1, k2;	
+	public Character k1, k2;	
 	private Rectangle boundaries;
 	private boolean gameOver = false;
 	private static int spaceCount;

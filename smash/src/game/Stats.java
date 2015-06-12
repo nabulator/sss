@@ -49,5 +49,11 @@ public class Stats extends DisplayObject
 			this.remove( this.totalChildren() - 1 );
 			stocks--;
 		}
+		
+		for(int i = 2; i < this.totalChildren(); i++)
+		{
+			DisplayObject obj = this.children.get(i);
+			((Circle)obj).color = c.color;
+		}
 	}
 }

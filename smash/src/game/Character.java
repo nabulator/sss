@@ -79,6 +79,9 @@ public class Character extends DisplayObject
 		this.x += dx;
 		this.y += dy;
 		
+		hurtBox.color = color;
+		hitBox.color = color;
+		
 		eye.x = 20*dir;
 		
 		//friction
