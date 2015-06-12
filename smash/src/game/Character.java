@@ -14,7 +14,6 @@ public class Character extends DisplayObject
 	public int attackFrameTimer, specialFrameTimer, shieldFrameCount, jumpTimeout, stunTimeout;
 	public Color color;
 	public static Random rand;
-	public static int rand_seed;
 
 	public float dx, dy;
 	public int dir, attackDir;
@@ -54,7 +53,7 @@ public class Character extends DisplayObject
 		eye.color = Color.BLACK;
 		
 		rand = new Random();
-		rand.setSeed(rand_seed);
+		rand.setSeed(0);
 	}
 	
 	public void init()
