@@ -1,13 +1,11 @@
 package game;
 
-import javax.swing.JOptionPane;
 
 import processing.core.PApplet;
 
 public class Main extends PApplet{
 
 	private Game g;
-	private Platform stage;
 	public static boolean keysPressed[], keysPressed2[], reset, spacePressed, lockKeys;
 	public static int STAGE_HEIGHT=680, STAGE_WIDTH=960;
 	public static boolean MULTIPLAYER = false, HOST = false;

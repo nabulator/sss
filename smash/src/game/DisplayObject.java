@@ -4,6 +4,7 @@ package game;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 
 /**
  * Can be useful
@@ -144,7 +145,7 @@ public abstract class DisplayObject {
 	
 	public void text(String text, float x0, float y0)
 	{
-		p.textAlign( p.CENTER );
+		p.textAlign( PConstants.CENTER );
 		p.text(text, parentX() + x + x0, parentY() + y + y0);
 	}
 	

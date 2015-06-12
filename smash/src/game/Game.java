@@ -3,11 +3,6 @@ package game;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
-
-import basicMath.QuarterCircle;
-import basicMath.Vector2D;
-import processing.core.PApplet;
 
 public class Game extends DisplayObject {
 	

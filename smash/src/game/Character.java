@@ -114,14 +114,14 @@ public class Character extends DisplayObject
 	{
 		//physics
 		//character collision			
-		if( this.y + this.RADIUS >= fd.y ) //under neath top line
+		if( this.y + Character.RADIUS >= fd.y ) //under neath top line
 		{
 			if(this.x > fd.x && this.x < fd.x + fd.width) //in x range
 			{
-				if( this.y + this.RADIUS  < fd.y + this.MAX_FALL_SPEED + 20 ) //the fall speed offset is to prevent ball from going crazy
+				if( this.y + Character.RADIUS  < fd.y + Character.MAX_FALL_SPEED + 20 ) //the fall speed offset is to prevent ball from going crazy
 				{
 					this.dy = 0;
-					this.y = fd.y - this.RADIUS;
+					this.y = fd.y - Character.RADIUS;
 					this.onGround = true;
 					this.jumpCount = 0;
 				}

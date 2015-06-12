@@ -1,7 +1,5 @@
 package game;
 
-import java.awt.Color;
-
 public class Stats extends DisplayObject
 {
 	private Character c;
