@@ -79,7 +79,7 @@ public class NetworkMain {
 		
 	}
 	
-	private final static EmbededGame initEG(String title, Closeable c)
+	private final static EmbededGame initEG(String title, final Closeable c)
 	{
 		//init game
 		final EmbededGame eg = new EmbededGame( title );

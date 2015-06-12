@@ -1,15 +1,11 @@
 package game;
 
-
-import javax.swing.JOptionPane;
-
 import processing.core.PApplet;
 
 public class Main extends PApplet{
 
 	private Game g;
 	private CharacterSelect cs;
-	private Platform stage;
 	
 	public static boolean keysPressed[], keysPressed2[], reset, spacePressed, lockKeys;
 	public static boolean MULTIPLAYER = false, HOST = false;
@@ -17,8 +13,8 @@ public class Main extends PApplet{
 	
 	public Main()
 	{
-		Object[] opts = {"Local", "NetworkHost", "NetworkClient"};
-		int i = JOptionPane.showOptionDialog(null, "What kind of game?", "Super Smash Sisters", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
+		//Object[] opts = {"Local", "NetworkHost", "NetworkClient"};
+		//int i = JOptionPane.showOptionDialog(null, "What kind of game?", "Super Smash Sisters", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
 		
 		cs = new CharacterSelect();
 		cs.initStage(this);

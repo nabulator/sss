@@ -173,6 +173,7 @@ public class Character extends DisplayObject
 					force = force.direction().scale( other.dmg / 2.0f );
 					other.dx = - force.x;
 					other.dy = - Math.abs(force.y);
+					other.onGround = false;
 					other.stunned = true;
 					other.stunTimeout = 10;
 				}
