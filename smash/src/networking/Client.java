@@ -33,7 +33,7 @@ public class Client {
 	
 	public void sendControls()
 	{
-		System.out.println("client sending...");
+		System.out.println("client sending..." + clientfc);
 		boolean[] cc = rc.getP2Controls();
 		
 		pw.print( rc.frameCount );
@@ -57,7 +57,7 @@ public class Client {
 				if( scan.hasNext() )
 					newData[h] = scan.nextBoolean();
 			rc.setP1Controls(newData);
-			System.out.println("host received!");
+			System.out.println("client received!" + hostfc + " cfc" + clientfc);
 			return true;
 		}
 		return false;

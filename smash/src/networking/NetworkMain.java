@@ -34,6 +34,7 @@ public class NetworkMain {
 				while(true)
 				{
 					eg.m.redraw();
+					host.hostfc++;
 					host.sendControls();
 					while(!gotData)
 						gotData = host.getControls();
@@ -57,6 +58,7 @@ public class NetworkMain {
 						done = client.getControls();
 					client.sendControls();
 					eg.m.redraw();
+					client.clientfc++;
 					System.out.print("Host Controls: ");
 					printCont( rc.getP1Controls() );
 					Thread.sleep(TARGET_MS);
