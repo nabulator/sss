@@ -8,7 +8,7 @@ public class Main extends PApplet{
 
 	private Game g;
 	private Platform stage;
-	public static boolean keysPressed[], keysPressed2[], reset, spacePressed;
+	public static boolean keysPressed[], keysPressed2[], reset, spacePressed, lockKeys;
 	public static int STAGE_HEIGHT=680, STAGE_WIDTH=960;
 	public static boolean MULTIPLAYER = false, HOST = false;
 	
@@ -49,6 +49,7 @@ public class Main extends PApplet{
 	{
 		char keyCode = (char)this.keyCode;
 		
+		lockKeys = true;
 		if( (MULTIPLAYER && HOST) || ! MULTIPLAYER )
 		{
 			switch(keyCode)
@@ -78,6 +79,7 @@ public class Main extends PApplet{
 			}
 
 		}
+		lockKeys = false;
 	}
 	
 	/**
@@ -87,27 +89,31 @@ public class Main extends PApplet{
 	public void keyReleased()
 	{
 		char keyCode = (char)this.keyCode;
-		switch(keyCode)
+		if(!lockKeys)
 		{
-			case 'A': keysPressed[0] = false; break;
-			case 'D': keysPressed[1] = false; break;	
-			case 'J': keysPressed[2] = false; break;
-			case 'F': keysPressed[3] = false; break;
-			case 'Y': keysPressed[4] = false; break;
+			switch(keyCode)
+			{
+				case 'A': keysPressed[0] = false; break;
+				case 'D': keysPressed[1] = false; break;	
+				case 'J': keysPressed[2] = false; break;
+				case 'F': keysPressed[3] = false; break;
+				case 'Y': keysPressed[4] = false; break;
+			}
+			
+			switch(keyCode)
+			{
+				case 'H': keysPressed2[0] = false; break;
+				case 'N': keysPressed2[1] = false; break;
+				case '-': keysPressed2[2] = false; break;  //has comptability issues with my linux
+				case 'S': keysPressed2[3] = false; break;
+				case '=': keysPressed2[4] = false; break;
+				
+				case 112: reset = false; break;
+				
+				case ' ': spacePressed = false; break;
+			}
 		}
 		
-		switch(keyCode)
-		{
-			case 'H': keysPressed2[0] = false; break;
-			case 'N': keysPressed2[1] = false; break;
-			case '-': keysPressed2[2] = false; break;  //has comptability issues with my linux
-			case 'S': keysPressed2[3] = false; break;
-			case '=': keysPressed2[4] = false; break;
-			
-			case 112: reset = false; break;
-			
-			case ' ': spacePressed = false; break;
-		}
 	}
 
 }
