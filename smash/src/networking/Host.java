@@ -39,6 +39,7 @@ public class Host {
 		for(int j=0; j<cc.length; j++)
 			pw.print( cc[j] );
 		pw.flush();		
+		
 	}
 	
 	/**

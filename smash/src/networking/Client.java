@@ -60,6 +60,7 @@ public class Client {
 			System.out.println("client received!" + hostfc + " cfc" + clientfc);
 			return true;
 		}
+		System.out.println("client failed to get");
 		return false;
 			
 	}
