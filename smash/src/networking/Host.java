@@ -48,14 +48,14 @@ public class Host {
 	 */
 	public boolean getControls()
 	{
-		if( scan.hasNextLong() )
+		if( scan.hasNext() )
 		{
-			clientfc = scan.nextLong();
+			clientfc = Long.parseLong(scan.nextLine());
 			
 			boolean newData[] = new boolean[5];
 			for(int h=0; h<newData.length ; h++ )
-				if( scan.hasNextBoolean() )
-					newData[h] = scan.nextBoolean();
+				if( scan.hasNext() )
+					newData[h] = Boolean.parseBoolean(scan.nextLine());
 			rc.setP2Controls(newData);
 			System.out.println("Host received! hfc " + hostfc + " cfc" + clientfc);
 			return true;

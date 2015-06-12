@@ -74,7 +74,7 @@ public class NetworkMain {
 		
 	}
 	
-	private final static EmbededGame initEG( String title)
+	private final static EmbededGame initEG(String title)
 	{
 		//init game
 		final EmbededGame eg = new EmbededGame( title );
