@@ -34,8 +34,8 @@ public class NetworkMain {
 				{
 					//printCont( rc.getP1Controls() );
 					eg.m.redraw();
-					host.getControls();
 					host.sendControls();
+					host.getControls()
 					Thread.sleep(TARGET_MS);
 				}
 			case 2: //client 
