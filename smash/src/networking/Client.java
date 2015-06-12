@@ -36,9 +36,9 @@ public class Client {
 		System.out.println("client sending..." + clientfc);
 		boolean[] cc = rc.getP2Controls();
 		
-		pw.print( rc.frameCount );
+		pw.println( rc.frameCount );
 		for(int j=0; j<cc.length; j++)
-			pw.print( cc[j] );
+			pw.println( cc[j] );
 		pw.flush();
 	}
 	
@@ -48,15 +48,15 @@ public class Client {
 	 */
 	public boolean getControls()
 	{
-		System.out.println("attempt get from host");
-		if( scan.hasNextLong() )
+		System.out.println("attempt get from host" );
+		if( scan.hasNext() )
 		{
 			System.out.println("has nebt");
 			clientfc = scan.nextLong();
 			System.out.println("got long");
 			boolean newData[] = new boolean[5];
 			for(int h=0; h<newData.length ; h++ )
-				if( scan.hasNextBoolean() )
+				if( scan.hasNext() )
 					newData[h] = scan.nextBoolean();
 			rc.setP1Controls(newData);
 			System.out.println("client received!" + hostfc + " cfc" + clientfc);
