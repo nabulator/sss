@@ -40,9 +40,8 @@ public class NetworkMain {
 					while(!gotData)
 						gotData = host.getControls();
 
-					System.out.print("Client Controls: ");
-					//printCont( rc.getP1Controls() );
-					printCont( rc.getP2Controls() );
+					//System.out.print("Client Controls: ");
+					//printCont( rc.getP2Controls() );
 					Thread.sleep(TARGET_MS);
 				}
 			case 2: //client 
@@ -62,8 +61,8 @@ public class NetworkMain {
 					client.sendControls();
 					eg.m.redraw();
 					client.clientfc++;
-					System.out.print("Host Controls: ");
-					printCont( rc.getP1Controls() );
+					//System.out.print("Host Controls: ");
+					//printCont( rc.getP1Controls() );
 					Thread.sleep(TARGET_MS);
 				}
 			case 0:
