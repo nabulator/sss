@@ -30,14 +30,16 @@ public class NetworkMain {
 				rc = new RemoteController( eg.m );
 				host.setRC(rc);
 
-				boolean gotData = false;
+				boolean gotData;
 				while(true)
 				{
 					eg.m.redraw();
 					host.hostfc++;
 					host.sendControls();
-					while(gotData)
+					gotData = false;
+					while(!gotData)
 						gotData = host.getControls();
+
 					System.out.print("Client Controls: ");
 					//printCont( rc.getP1Controls() );
 					printCont( rc.getP2Controls() );
@@ -51,10 +53,11 @@ public class NetworkMain {
 				rc = new RemoteController( eg.m );
 				client.setRC(rc);
 				
-				boolean done = false;
+				boolean done;
 				while(true)
 				{
-					while(done)
+					done = false;
+					while(!done)
 						done = client.getControls();
 					client.sendControls();
 					eg.m.redraw();
