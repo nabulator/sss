@@ -48,13 +48,15 @@ public class Client {
 	 */
 	public boolean getControls()
 	{
-		if( scan.hasNext() )
+		System.out.println("attempt get from host");
+		if( scan.hasNextLong() )
 		{
+			System.out.println("has nebt");
 			clientfc = scan.nextLong();
-			
+			System.out.println("got long");
 			boolean newData[] = new boolean[5];
 			for(int h=0; h<newData.length ; h++ )
-				if( scan.hasNext() )
+				if( scan.hasNextBoolean() )
 					newData[h] = scan.nextBoolean();
 			rc.setP1Controls(newData);
 			System.out.println("client received!" + hostfc + " cfc" + clientfc);
