@@ -35,9 +35,9 @@ public class Host {
 		System.out.println("host sending..." + hostfc);
 		boolean[] cc = rc.getP1Controls();
 		
-		pw.print( rc.frameCount );
+		pw.println( rc.frameCount );
 		for(int j=0; j<cc.length; j++)
-			pw.print( cc[j] );
+			pw.println( cc[j] );
 		pw.flush();		
 		
 	}
