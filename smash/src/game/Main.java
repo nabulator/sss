@@ -87,20 +87,20 @@ public class Main extends PApplet{
 		char keyCode = (char)this.keyCode;
 		switch(keyCode)
 		{
-			case 'H': keysPressed[0] = false; break;
-			case 'N': keysPressed[1] = false; break;	
-			case '-': keysPressed[2] = false; break;
-			case 'S': keysPressed[3] = false; break;
-			case '=': keysPressed[4] = false; break;
+			case 'A': keysPressed[0] = false; break;
+			case 'D': keysPressed[1] = false; break;	
+			case 'J': keysPressed[2] = false; break;
+			case 'F': keysPressed[3] = false; break;
+			case 'Y': keysPressed[4] = false; break;
 		}
 		
 		switch(keyCode)
 		{
-			case 'J': keysPressed2[0] = false; break;
-			case 'L': keysPressed2[1] = false; break;
-			case (char)222: keysPressed2[2] = false; break;  //has comptability issues with my linux
-			case ';': keysPressed2[3] = false; break;
-			case ']': keysPressed2[4] = false; break;
+			case 'H': keysPressed2[0] = false; break;
+			case 'N': keysPressed2[1] = false; break;
+			case '-': keysPressed2[2] = false; break;  //has comptability issues with my linux
+			case 'S': keysPressed2[3] = false; break;
+			case '=': keysPressed2[4] = false; break;
 			
 			case 112: reset = false; break;
 		}
