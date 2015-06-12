@@ -30,12 +30,14 @@ public class NetworkMain {
 				rc = new RemoteController( eg.m );
 				host.setRC(rc);
 
+				boolean gotData = false;
 				while(true)
 				{
 					//printCont( rc.getP1Controls() );
 					eg.m.redraw();
 					host.sendControls();
-					host.getControls()
+					while(!gotData)
+						gotData = host.getControls();
 					Thread.sleep(TARGET_MS);
 				}
 			case 2: //client 
@@ -48,8 +50,9 @@ public class NetworkMain {
 				
 				while(true)
 				{
+					while(client.clientfc < client.hostfc)
+						client.getControls();
 					eg.m.redraw();
-					client.getControls();
 					client.sendControls();
 					Thread.sleep(TARGET_MS);
 				}

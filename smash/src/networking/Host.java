@@ -8,11 +8,12 @@ import java.util.Scanner;
 
 public class Host {
 	
-
 	private Socket client;
 	private RemoteController rc; //YOU MUST SET THIS!!!!
 	private Scanner scan;
 	private PrintWriter pw;
+	
+	public long hostfc, clientfc;
 	
 	public Host() throws IOException
 	{
@@ -32,24 +33,35 @@ public class Host {
 	public void sendControls()
 	{
 		boolean[] cc = rc.getP1Controls();
+		this.hostfc++;
 		
 		pw.print( rc.frameCount );
 		for(int j=0; j<cc.length; j++)
 			pw.print( cc[j] );
 		pw.flush();
+		
+		
 	}
 	
-	public void getControls()
+	/**
+	 * 
+	 * @return true if compltede operation
+	 */
+	public boolean getControls()
 	{
-		long theirCount;
 		if( scan.hasNext() )
-			theirCount = scan.nextLong();
-		
-		boolean newData[] = new boolean[5];
-		for(int h=0; h<newData.length ; h++ )
-			if( scan.hasNext() )
-				newData[h] = scan.nextBoolean();
-		rc.setP2Controls(newData);
+		{
+			clientfc = scan.nextLong();
+			
+			boolean newData[] = new boolean[5];
+			for(int h=0; h<newData.length ; h++ )
+				if( scan.hasNext() )
+					newData[h] = scan.nextBoolean();
+			rc.setP2Controls(newData);
+			return true;
+		}
+		return false;
+			
 	}
 	
 

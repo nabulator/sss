@@ -12,6 +12,8 @@ public class Client {
 	private Scanner scan;
 	private PrintWriter pw;
 	
+	public long hostfc, clientfc;
+	
 	public Client() throws UnknownHostException, IOException
 	{
 		String ip = "192.168.1.15";//"10.5.100.93";
@@ -39,16 +41,24 @@ public class Client {
 		pw.flush();
 	}
 	
-	public void getControls()
+	/**
+	 * 
+	 * @return true if compltede operation
+	 */
+	public boolean getControls()
 	{
-		long theirCount;
 		if( scan.hasNext() )
-			theirCount = scan.nextLong();
-		
-		boolean newData[] = new boolean[5];
-		for(int h=0; h<newData.length ; h++ )
-			if( scan.hasNext() )
-				newData[h] = scan.nextBoolean();
-		rc.setP1Controls(newData);
+		{
+			clientfc = scan.nextLong();
+			
+			boolean newData[] = new boolean[5];
+			for(int h=0; h<newData.length ; h++ )
+				if( scan.hasNext() )
+					newData[h] = scan.nextBoolean();
+			rc.setP1Controls(newData);
+			return true;
+		}
+		return false;
+			
 	}
 }
