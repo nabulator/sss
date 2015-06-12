@@ -43,6 +43,8 @@ public class Main extends PApplet{
 	 * checks if key is pressed
 	 * @param keyCode the keyCode of keyPressed
 	 */
+
+	
 	public void keyPressed()
 	{
 		char keyCode = (char)this.keyCode;
@@ -64,11 +66,11 @@ public class Main extends PApplet{
 		{
 			switch(keyCode)
 			{
-			case 'J': keysPressed2[0] = true; break;
-			case 'L': keysPressed2[1] = true; break;
-			case (char)222: keysPressed2[2] = true; break; //SINGLE QUOTE
-			case ';': keysPressed2[3] = true; break;
-			case ']': keysPressed2[4] = true; break;
+			case 'H': keysPressed2[0] = true; break;
+			case 'N': keysPressed2[1] = true; break;
+			case  '-': keysPressed2[2] = true; break; //SINGLE QUOTE
+			case 'S': keysPressed2[3] = true; break;
+			case '=': keysPressed2[4] = true; break;
 			
 			case 112: reset = true; break;
 			

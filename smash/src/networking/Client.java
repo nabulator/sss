@@ -14,7 +14,7 @@ public class Client {
 	
 	public Client() throws UnknownHostException, IOException
 	{
-		String ip = "10.5.100.93";
+		String ip = "192.168.1.15";//"10.5.100.93";
 		int port = 16002;
 		
 		Socket s = new Socket(ip, port);
@@ -41,10 +41,14 @@ public class Client {
 	
 	public void getControls()
 	{
-		long theirCount = scan.nextLong();
+		long theirCount;
+		if( scan.hasNext() )
+			theirCount = scan.nextLong();
+		
 		boolean newData[] = new boolean[5];
 		for(int h=0; h<newData.length ; h++ )
-			newData[h] = scan.nextBoolean();
+			if( scan.hasNext() )
+				newData[h] = scan.nextBoolean();
 		rc.setP1Controls(newData);
 	}
 }

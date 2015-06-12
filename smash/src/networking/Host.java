@@ -41,10 +41,14 @@ public class Host {
 	
 	public void getControls()
 	{
-		long theirCount = scan.nextLong();
+		long theirCount;
+		if( scan.hasNext() )
+			theirCount = scan.nextLong();
+		
 		boolean newData[] = new boolean[5];
 		for(int h=0; h<newData.length ; h++ )
-			newData[h] = scan.nextBoolean();
+			if( scan.hasNext() )
+				newData[h] = scan.nextBoolean();
 		rc.setP2Controls(newData);
 	}
 	
