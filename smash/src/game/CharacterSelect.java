@@ -4,20 +4,14 @@ import java.awt.Color;
 
 public class CharacterSelect extends DisplayObject
 {
-	public int cursorNum;
-	public Textbox cursor;
 	public Character[] select;
-	public Color selectedColor;
-	public int selectTimeout;
+	public Color[] colors = {Color.PINK, Color.CYAN, Color.WHITE, Color.GREEN};
+	public Color selectedColor, selectedColor2;
+	public Cursor c1, c2;
+	public Textbox crap;
 	
-	public void init()
-	{
-		cursorNum = 0;
-		cursor = new Textbox("SELECT");
-		this.add(cursor);
-		cursor.color = Color.RED;
-		cursor.y = Main.STAGE_HEIGHT/2;
-		
+	public CharacterSelect()
+	{	
 		Platform stage = new Platform(0, 0);
 		
 		select = new Character[4];
@@ -26,13 +20,33 @@ public class CharacterSelect extends DisplayObject
 		select[2] = new Character(stage, Color.WHITE);
 		select[3] = new Character(stage, Color.GREEN);
 		
+		crap = new Textbox("SELECT YOUR CHARACTER!");
+		crap.size = 70;
+	}
+	
+	
+	public void init()
+	{
+		//these need the Main reference and must be inited here
+		c1 = new Cursor("Player 1", Color.RED, Main.keysPressed);
+		c2 = new Cursor("Player 2", Color.BLUE, Main.keysPressed2);
+		
+		this.add(c1);
+		this.add(c2);
+		c1.y = Main.STAGE_HEIGHT/2;
+		c2.y = Main.STAGE_HEIGHT/2 + 70;
+	
 		for(int i = 0; i < 4; i++)
 		{
 			this.add(select[i]);
-			select[i].x = (Main.STAGE_WIDTH/4) * i + 80;
-			select[i].y = Main.STAGE_HEIGHT / 4 - Character.RADIUS;
+			select[i].x = (Main.STAGE_WIDTH/4.5f) * i + 150;
+			select[i].y = Main.STAGE_HEIGHT / 3 - Character.RADIUS;
 			select[i].shieldBox.visible = false;
 		}
+		
+		this.add(crap);
+		this.y = 600;
+		this.x = Main.STAGE_WIDTH / 2;
 		
 	}
 	
@@ -41,40 +55,22 @@ public class CharacterSelect extends DisplayObject
 		for(int i = 0; i < 4; i++)
 			select[i].dy = 0;
 		
-		cursor.x = (Main.STAGE_WIDTH/4) * cursorNum + 80;
 		
-		if(selectTimeout > 0)
-			selectTimeout--;
-		
-		if(selectTimeout == 0 && selectedColor == null)
+		c1.x = (Main.STAGE_WIDTH/4.5f) * c1.number+ 150;
+		c2.x = (Main.STAGE_WIDTH/4.5f) * c2.number + 150;
+
+	}
+	
+	public boolean selected() throws InterruptedException
+	{
+		if(c1.selected && c2.selected)
 		{
-			selectTimeout = 15;
-			if( Main.keysPressed[0] )
-				cursorLeft();
-			else if( Main.keysPressed[1] )
-				cursorRight();
-			else if( Main.keysPressed[2] )
-			{
-				selectedColor = select[cursorNum].color;
-				cursor.color = Color.BLUE;
-			}
-			else
-				selectTimeout = 0;
+			Thread.sleep(1000);
+			this.removeAll();
+			return true;
 		}
+		else
+			return false;
 	}
-	
-	public void cursorLeft()
-	{
-		cursorNum--;
-		if(cursorNum < 0)
-			cursorNum = 3;
-	}
-	
-	public void cursorRight()
-	{
-		cursorNum++;
-		if(cursorNum > 3)
-			cursorNum = 0;
-	}
-	
+
 }

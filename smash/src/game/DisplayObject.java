@@ -35,6 +35,12 @@ public abstract class DisplayObject {
 		children.remove(index);
 	}
 	
+	public void removeAll()
+	{
+		while( children.size() > 0)
+			children.remove(0);
+	}
+	
 	public int totalChildren()
 	{
 		return children.size();

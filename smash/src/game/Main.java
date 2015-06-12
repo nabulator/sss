@@ -33,21 +33,30 @@ public class Main extends PApplet{
 
 	}
 	
+	private static boolean csOver;
 	public void draw()
 	{
 		clear();
+		
+			try {
+				if( ! csOver && ! MULTIPLAYER )
+				{
+					cs.runChildren();
+					cs.drawChildren();
+					csOver = cs.selected();
+				}
+				else
+				{
+					g.runChildren();
+					g.drawChildren();
+					g.k1.color = cs.colors[ cs.c1.number ];
+					g.k2.color = cs.colors[ cs.c2.number ];
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-		if(cs.selectedColor == null)
-		{
-			cs.runChildren();
-			cs.drawChildren();
-		}
-		else
-		{
-			g.runChildren();
-			g.drawChildren();
-			g.k1.color = cs.selectedColor;
-		}
 	}
 	
 	/**
