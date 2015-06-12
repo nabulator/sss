@@ -24,7 +24,8 @@ public class Game extends DisplayObject {
 		k1Stats = new Stats(k1);
 		k2Stats = new Stats(k2);
 		
-		boundaries = new Rectangle(0, 0, Main.STAGE_WIDTH, Main.STAGE_HEIGHT);
+		boundaries = new Rectangle( -Character.RADIUS, -Character.RADIUS, 
+				Main.STAGE_WIDTH + Character.RADIUS, Main.STAGE_HEIGHT + Character.RADIUS);
 		this.add( fd );
 		this.add( k1 );
 		this.add( k2 );
@@ -99,6 +100,9 @@ public class Game extends DisplayObject {
 			if(!boundaries.contains(k1Pos))
 			{
 				k1.stockCount--;
+				if( Math.random() > 0.8)
+					Main.screamFX.trigger();
+				Main.exitFX.trigger();
 				resetCharacter(k1, P1_INITIAL_X);
 				if(k1.stockCount <= 0)
 				{ 
@@ -110,6 +114,9 @@ public class Game extends DisplayObject {
 			if( !boundaries.contains( new Point((int)k2.x, (int)k2.y)))
 			{
 				k2.stockCount--;
+				if( Math.random() > 0.8)
+					Main.screamFX.trigger();
+				Main.exitFX.trigger();
 				resetCharacter(k2, P2_INITIAL_X);
 				if(k2.stockCount <= 0)
 				{

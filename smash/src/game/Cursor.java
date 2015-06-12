@@ -38,6 +38,7 @@ public class Cursor extends DisplayObject
 				cursorRight();
 			else if( controller[2] )
 			{
+				Main.kirbyFX.trigger();
 				selected = true;
 				text.color = Color.GRAY;
 			}
@@ -48,6 +49,7 @@ public class Cursor extends DisplayObject
 	
 	public void cursorLeft()
 	{
+		Main.swipeFX.trigger();
 		number--;
 		if(number < 0)
 			number = 3;
@@ -55,6 +57,7 @@ public class Cursor extends DisplayObject
 	
 	public void cursorRight()
 	{
+		Main.swipeFX.trigger();
 		number++;
 		if(number > 3)
 			number = 0;

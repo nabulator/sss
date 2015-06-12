@@ -176,6 +176,13 @@ public class Character extends DisplayObject
 					other.onGround = false;
 					other.stunned = true;
 					other.stunTimeout = 10;
+					
+					if( other.dmg < 50 )
+						Main.hit1FX.trigger();
+					else if ( other.dmg < 75 )
+						Main.hit2FX.trigger();
+					else
+						Main.hit3FX.trigger();
 				}
 				
 		}
@@ -190,6 +197,7 @@ public class Character extends DisplayObject
 	{
 		if( attackFrameTimer == 0 && shieldBox.visible == false && !stunned)
 		{
+			Main.punchFX.trigger();
 			attack = true;
 			attackFrameTimer = 12;
 		}
@@ -227,6 +235,7 @@ public class Character extends DisplayObject
 			onGround = false;
 			jumpCount++;
 			jumpTimeout = JUMP_TIMEOUT;
+			Main.jumpFX.trigger();
 		}
 	}
 	

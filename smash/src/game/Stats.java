@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Color;
+
 public class Stats extends DisplayObject
 {
 	private Character c;
@@ -43,6 +45,7 @@ public class Stats extends DisplayObject
 	
 	public void draw()
 	{
+		p.color = c.color;
 		damage.text = c.dmg + "%";
 		if( c.stockCount < stocks && stocks > 0)
 		{

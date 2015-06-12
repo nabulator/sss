@@ -66,7 +66,12 @@ public class CharacterSelect extends DisplayObject
 		if(c1.selected && c2.selected)
 		{
 			Thread.sleep(1000);
+			Main.csSong.pause();
+			Main.startFX.trigger();
 			this.removeAll();
+			
+			Thread.sleep(1000);
+			Main.themeSong.loop();
 			return true;
 		}
 		else
