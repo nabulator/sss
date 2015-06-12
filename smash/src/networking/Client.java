@@ -48,12 +48,10 @@ public class Client {
 	 */
 	public boolean getControls()
 	{
-		System.out.println("attempt get from host" );
 		if( scan.hasNext() )
 		{
+			hostfc = Long.parseLong(scan.nextLine());
 
-			clientfc = Long.parseLong(scan.nextLine());
-			System.out.println("got long");
 			boolean newData[] = new boolean[5];
 			for(int h=0; h<newData.length ; h++ )
 				if( scan.hasNext() )
