@@ -32,15 +32,14 @@ public class Host {
 	
 	public void sendControls()
 	{
+		System.out.println("host sending...");
 		boolean[] cc = rc.getP1Controls();
 		this.hostfc++;
 		
 		pw.print( rc.frameCount );
 		for(int j=0; j<cc.length; j++)
 			pw.print( cc[j] );
-		pw.flush();
-		
-		
+		pw.flush();		
 	}
 	
 	/**
@@ -58,6 +57,7 @@ public class Host {
 				if( scan.hasNext() )
 					newData[h] = scan.nextBoolean();
 			rc.setP2Controls(newData);
+			System.out.println("Host received!");
 			return true;
 		}
 		return false;
