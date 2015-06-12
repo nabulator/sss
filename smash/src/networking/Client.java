@@ -51,13 +51,13 @@ public class Client {
 		System.out.println("attempt get from host" );
 		if( scan.hasNext() )
 		{
-			System.out.println("has nebt");
-			clientfc = scan.nextLong();
+
+			clientfc = Long.parseLong(scan.nextLine());
 			System.out.println("got long");
 			boolean newData[] = new boolean[5];
 			for(int h=0; h<newData.length ; h++ )
 				if( scan.hasNext() )
-					newData[h] = scan.nextBoolean();
+					newData[h] = Boolean.parseBoolean(scan.nextLine());
 			rc.setP1Controls(newData);
 			System.out.println("client received!" + hostfc + " cfc" + clientfc);
 			return true;
