@@ -3,6 +3,7 @@ package networking;
 import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.Closeable;
 import java.io.IOException;
 
 import game.Main;
@@ -20,11 +21,13 @@ public class NetworkMain {
 		RemoteController rc;
 		
 		int v = JOptionPane.showOptionDialog(null, "What kind of game?", "Super Smash Sisters", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
+		if(v == 1 || v == 2 )
+			JOptionPane.showMessageDialog(null, "Warning: network in Beta testing. \nMay be unstable");	
 		switch(v)
 		{
 			case 1: //host
 				Host host = new Host();
-				eg = initEG( opts[v].toString() );
+				eg = initEG( opts[v].toString(), host );
 				eg.m.MULTIPLAYER = true;
 				eg.m.HOST = true;
 				rc = new RemoteController( eg.m );
@@ -46,7 +49,7 @@ public class NetworkMain {
 				}
 			case 2: //client 
 				Client client = new Client();
-				eg = initEG( opts[v].toString() );
+				eg = initEG( opts[v].toString(), client );
 				eg.m.MULTIPLAYER = true;
 				eg.m.HOST = false;
 				rc = new RemoteController( eg.m );
@@ -67,7 +70,7 @@ public class NetworkMain {
 				}
 			case 0:
 			default:
-				eg = initEG( opts[v].toString() );
+				eg = initEG( opts[v].toString(), null );
 				//local
 				
 		}
@@ -76,7 +79,7 @@ public class NetworkMain {
 		
 	}
 	
-	private final static EmbededGame initEG(String title)
+	private final static EmbededGame initEG(String title, Closeable c)
 	{
 		//init game
 		final EmbededGame eg = new EmbededGame( title );
@@ -89,6 +92,12 @@ public class NetworkMain {
 				public void windowClosing( WindowEvent e)
 				{
 					eg.m.exit();
+					try {
+						if(c != null)
+							c.close();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 					//System.out.println("Exit Game");
 				}
 			}

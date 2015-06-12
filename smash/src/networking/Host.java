@@ -1,14 +1,16 @@
 package networking;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Host {
+public class Host implements Closeable{
 	
 	private Socket client;
+	private ServerSocket ss;
 	private RemoteController rc; //YOU MUST SET THIS!!!!
 	private Scanner scan;
 	private PrintWriter pw;
@@ -18,9 +20,10 @@ public class Host {
 	public Host() throws IOException
 	{
 		final int PORT = 16002;
-		ServerSocket ss = new ServerSocket(PORT);
-		
+		ss = new ServerSocket(PORT);
+
 		client = ss.accept();
+		ss.close();
 		scan = new Scanner( client.getInputStream() );
 		pw = new PrintWriter( client.getOutputStream() );
 	}
@@ -62,5 +65,9 @@ public class Host {
 			
 	}
 	
+	public void close() throws IOException
+	{
+		client.close();
+	}
 
 }

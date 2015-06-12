@@ -1,16 +1,18 @@
 package networking;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class Client {
+public class Client implements Closeable{
 
 	private RemoteController rc;
 	private Scanner scan;
 	private PrintWriter pw;
+	private Socket s;
 	
 	public long hostfc, clientfc;
 	
@@ -19,7 +21,7 @@ public class Client {
 		String ip = "192.168.1.15";//"10.5.100.93";
 		int port = 16002;
 		
-		Socket s = new Socket(ip, port);
+		s = new Socket(ip, port);
 		scan = new Scanner( s.getInputStream() );
 		pw = new PrintWriter( s.getOutputStream() );
 		
@@ -62,5 +64,10 @@ public class Client {
 		//System.out.println("client failed to get");
 		return false;
 			
+	}
+	
+	public void close() throws IOException
+	{
+		s.close();
 	}
 }
