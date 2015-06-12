@@ -11,7 +11,7 @@ public class Textbox extends DisplayObject
 	
 	public Textbox(String s)
 	{
-		color = Color.BLACK;
+		color = Color.WHITE;
 		text = s;
 		size = 24;
 	}

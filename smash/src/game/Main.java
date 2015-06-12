@@ -17,10 +17,10 @@ public class Main extends PApplet{
 		Object[] opts = {"Local", "NetworkHost", "NetworkClient"};
 		int i = JOptionPane.showOptionDialog(null, "What kind of game?", "Super Smash Sisters", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
 		
-//		g = new Game();
-//		g.initStage(this);
 		cs = new CharacterSelect();
 		cs.initStage(this);
+		g = new Game();
+		g.initStage(this);
 		keysPressed = new boolean[5];
 		keysPressed2 = new boolean[5];
 	}
@@ -29,7 +29,7 @@ public class Main extends PApplet{
 	{
 		frameRate(30);
 		size(STAGE_WIDTH, STAGE_HEIGHT);
-//		g.initChildren();
+		g.initChildren();
 		cs.initChildren();
 
 	}
@@ -37,11 +37,18 @@ public class Main extends PApplet{
 	public void draw()
 	{
 		clear();
-//		g.runChildren();
-//		g.drawChildren();
-		
-		cs.runChildren();
-		cs.drawChildren();
+
+		if(cs.selectedColor == null)
+		{
+			cs.runChildren();
+			cs.drawChildren();
+		}
+		else
+		{
+			g.runChildren();
+			g.drawChildren();
+			g.k1.color = cs.selectedColor;
+		}
 	}
 	
 	/**
