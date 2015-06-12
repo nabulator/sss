@@ -20,7 +20,7 @@ public class Game extends DisplayObject {
 	
 	public final static int P1_INITIAL_X = 300, P2_INITIAL_X = 700;
 	
-	public Game()
+	public void init()
 	{
 		fd = new Platform(700, 120);
 		k1 = new Character( fd, Color.CYAN );
@@ -30,10 +30,6 @@ public class Game extends DisplayObject {
 		k2Stats = new Stats(k2);
 		
 		boundaries = new Rectangle(0, 0, Main.STAGE_WIDTH, Main.STAGE_HEIGHT);
-	}
-	
-	public void init()
-	{
 		this.add( fd );
 		this.add( k1 );
 		this.add( k2 );
@@ -54,6 +50,9 @@ public class Game extends DisplayObject {
 		k1Stats.y = 530;
 		k2Stats.x = Main.STAGE_WIDTH - statsPadding - 140;
 		k2Stats.y = 530;
+		
+		gameOver = false;
+		spaceCount = 0;
 	}
 
 	/* (non-Javadoc)
@@ -99,32 +98,34 @@ public class Game extends DisplayObject {
 		}
 		
 		//KO DETECTION
-		Point k1Pos = new Point((int)k1.x, (int)k1.y);
-		if(!boundaries.contains(k1Pos))
+		if(!gameOver)
 		{
-			k1.stockCount--;
-			resetCharacter(k1, P1_INITIAL_X);
-			if(k1.stockCount <= 0)
-			{ 
-				k1.visible = false;
-				gameOver(2);
-			}
-				
-		}
-		if( !boundaries.contains( new Point((int)k2.x, (int)k2.y)))
-		{
-			k2.stockCount--;
-			resetCharacter(k2, P2_INITIAL_X);
-			if(k2.stockCount <= 0)
+			Point k1Pos = new Point((int)k1.x, (int)k1.y);
+			if(!boundaries.contains(k1Pos))
 			{
-				k2.visible = false;
-				gameOver(1);
+				k1.stockCount--;
+				resetCharacter(k1, P1_INITIAL_X);
+				if(k1.stockCount <= 0)
+				{ 
+					k1.visible = false;
+					gameOver(2);
+				}
+					
+			}
+			if( !boundaries.contains( new Point((int)k2.x, (int)k2.y)))
+			{
+				k2.stockCount--;
+				resetCharacter(k2, P2_INITIAL_X);
+				if(k2.stockCount <= 0)
+				{
+					k2.visible = false;
+					gameOver(1);
+				}
 			}
 		}
-		
 		if(gameOver)
 		{
-			Textbox replay = new Textbox("Press space twice to play again");
+			Textbox replay = new Textbox("Press space to play again");
 			this.add(replay);
 			replay.x = center.x;
 			replay.y = center.y + 30;
@@ -135,8 +136,13 @@ public class Game extends DisplayObject {
 			/**
 			 * FIX THIS
 			 */
-			if(spaceCount > 1)
+			if(spaceCount > 0)
+			{
+				this.children.clear();
+				
 				this.init();
+				this.initChildren();
+			}
 		}
 	}
 	
