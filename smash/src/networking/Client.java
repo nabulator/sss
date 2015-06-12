@@ -33,7 +33,6 @@ public class Client {
 	
 	public void sendControls()
 	{
-		System.out.println("client sending..." + clientfc);
 		boolean[] cc = rc.getP2Controls();
 		
 		pw.println( this.clientfc );
@@ -57,10 +56,10 @@ public class Client {
 				if( scan.hasNext() )
 					newData[h] = Boolean.parseBoolean(scan.nextLine());
 			rc.setP1Controls(newData);
-			System.out.println("client received!" + hostfc + " cfc" + clientfc);
+			//System.out.println("client received!" + hostfc + " cfc" + clientfc);
 			return true;
 		}
-		System.out.println("client failed to get");
+		//System.out.println("client failed to get");
 		return false;
 			
 	}

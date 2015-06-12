@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.util.Random;
 
 import basicMath.QuarterCircle;
 import basicMath.Vector2D;
@@ -12,6 +13,8 @@ public class Character extends DisplayObject
 	public boolean attack, special, onGround, attackLanded, stunned;
 	public int attackFrameTimer, specialFrameTimer, shieldFrameCount, jumpTimeout, stunTimeout;
 	public Color color;
+	public static Random rand;
+	public static int rand_seed;
 
 	public float dx, dy;
 	public int dir, attackDir;
@@ -50,6 +53,8 @@ public class Character extends DisplayObject
 		eye = new Circle(5);
 		eye.color = Color.BLACK;
 		
+		rand = new Random();
+		rand.setSeed(rand_seed);
 	}
 	
 	public void init()
