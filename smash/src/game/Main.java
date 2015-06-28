@@ -7,6 +7,7 @@ public class Main extends PApplet{
 
 	private Game g;
 	private CharacterSelect cs;
+	private Plasma coolBg;
 	
 	public static boolean keysPressed[], keysPressed2[], reset, spacePressed, lockKeys;
 	public static boolean MULTIPLAYER = false, HOST = false;
@@ -24,6 +25,8 @@ public class Main extends PApplet{
 		cs.initStage(this);
 		g = new Game();
 		g.initStage(this);
+		coolBg = new Plasma();
+		coolBg.initStage(this);
 		keysPressed = new boolean[5];
 		keysPressed2 = new boolean[5];
 		
@@ -41,6 +44,9 @@ public class Main extends PApplet{
 		screamFX = m.loadSample("scream.wav");
 		exitFX = m.loadSample("exit.wav");
 		jumpFX = m.loadSample("jump.wav");
+		
+		
+		m.stop();
 	}
 	
 	public void setup()
@@ -49,6 +55,7 @@ public class Main extends PApplet{
 		size(STAGE_WIDTH, STAGE_HEIGHT);
 		g.initChildren();
 		cs.initChildren();
+		coolBg.init();
 		csSong.loop();
 	}
 	
@@ -56,6 +63,10 @@ public class Main extends PApplet{
 	public void draw()
 	{
 		clear();
+		//coolBg.warp( Math.sin( this.frameCount / 400.0 )*0.1 );
+		//if( this.frameCount % 15 == 0 )
+			coolBg.rotateSeed( (int)( 0xff * Math.sin(this.frameCount/40.0) - 0x88));//coolBg.populate( 0.01 );//Math.sin( this.frameCount / 400.0 )*0.1 );
+		coolBg.draw();
 		
 			try {
 				if( ! csOver && ! MULTIPLAYER )
@@ -75,7 +86,7 @@ public class Main extends PApplet{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+			
 	}
 	
 	/**
@@ -96,7 +107,7 @@ public class Main extends PApplet{
 			case 'D': keysPressed[1] = true; break;
 			case 'G': keysPressed[2] = true; break;
 			case 'F': keysPressed[3] = true; break;
-			case 'Y': keysPressed[4] = true; break;
+			case 'W': keysPressed[4] = true; break;
 			}
 		}
 
@@ -136,7 +147,7 @@ public class Main extends PApplet{
 			case 'D': keysPressed[1] = false; break;	
 			case 'G': keysPressed[2] = false; break;
 			case 'F': keysPressed[3] = false; break;
-			case 'Y': keysPressed[4] = false; break;
+			case 'W': keysPressed[4] = false; break;
 			
 			case 'J': keysPressed2[0] = false; break;
 			case 'L': keysPressed2[1] = false; break;

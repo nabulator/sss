@@ -47,7 +47,7 @@ public class CharacterSelect extends DisplayObject
 		this.add(crap);
 		this.y = 600;
 		this.x = Main.STAGE_WIDTH / 2;
-		
+
 	}
 	
 	public void run()

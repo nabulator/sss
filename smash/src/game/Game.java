@@ -26,6 +26,7 @@ public class Game extends DisplayObject {
 		
 		boundaries = new Rectangle( -Character.RADIUS, -Character.RADIUS, 
 				Main.STAGE_WIDTH + Character.RADIUS, Main.STAGE_HEIGHT + Character.RADIUS);
+		
 		this.add( fd );
 		this.add( k1 );
 		this.add( k2 );
@@ -171,11 +172,9 @@ public class Game extends DisplayObject {
 	public void gameOver(int winner)
 	{
 		gameOver = true;
-		Rectangles rect = new Rectangles();
-		rect.width = Main.STAGE_WIDTH;
-		rect.height = Main.STAGE_HEIGHT;
-		rect.alpha = 100;
-		
+		Platform rect = new Platform(Main.STAGE_WIDTH, Main.STAGE_HEIGHT);
+		rect.color = Color.BLACK;
+		rect.alpha = 100; 
 		this.add(rect);
 		
 		Textbox win = new Textbox("Winner! Player " + winner);

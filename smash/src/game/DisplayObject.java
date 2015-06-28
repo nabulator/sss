@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PImage;
 
 /**
  * Can be useful
@@ -93,14 +94,7 @@ public abstract class DisplayObject {
 	{
 		
 	}
-	/*
-	 * The following methods shoul go in a separate graphics class if desire to preserve
-	 * encapsulation and UML diagrams but I'M TOO LAZY
-	 * The "graphis" class is really just a wrapper for papplet drawing functionas.
-	 * However, you can now draw relative to your x, y position.
-	 * This makes sprite movement easier...
-	 */
-	
+
 	private float parentX()
 	{
 		return parent != null ? parent.x : 0;
@@ -133,6 +127,14 @@ public abstract class DisplayObject {
 		}
 		return finalY;
 	}
+
+	/*
+	 * The following methods should go in a separate graphics class if desire to preserve
+	 * encapsulation and UML diagrams but I'M TOO LAZY
+	 * The "graphics" class is really just a wrapper for pApplet drawing functions.
+	 * However, you can now draw relative to your x, y position.
+	 * This makes sprite movement easier...
+	 */
 	
 	public void rect( float x0, float y0, float width, float height )
 	{
@@ -155,6 +157,11 @@ public abstract class DisplayObject {
 		p.text(text, parentX() + x + x0, parentY() + y + y0);
 	}
 	
+	public void image(PImage i)
+	{
+		p.image(i, parentX() + x, parentY() + y);
+	}
+	
 	public void fill( int rgb )
 	{
 		p.fill( rgb );
@@ -163,11 +170,6 @@ public abstract class DisplayObject {
 	public void fill( int r, int g, int b )
 	{
 		p.fill(r, g, b, this.alpha);
-	}
-	
-	public int lerp(int c1, int c2, float f)
-	{
-		return p.lerpColor(c1, c2, f);
 	}
 	
 	public void bg( int r, int g, int b )
@@ -180,9 +182,14 @@ public abstract class DisplayObject {
 		p.noStroke();
 	}
 	
-	public int frameCount()
+	public int lerp(int c1, int c2, float f)
 	{
-		return p.frameCount;
+		return p.lerpColor(c1, c2, f);
+	}
+	
+	public PImage createImage(int w, int h)
+	{
+		return p.createImage(w, h, p.RGB);
 	}
 	
 }
