@@ -13,7 +13,6 @@ import processing.core.PImage;
  */
 
 public abstract class DisplayObject {
-	
 	private PApplet p;
 	private DisplayObject parent; //NULL if STAGE
 	public float x, y; //Center point! Not upper left corner!!!
@@ -190,6 +189,11 @@ public abstract class DisplayObject {
 	public PImage createImage(int w, int h)
 	{
 		return p.createImage(w, h, p.RGB);
+	}
+	
+	public float frameCount()
+	{
+		return p.frameCount;
 	}
 	
 }

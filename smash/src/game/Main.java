@@ -25,8 +25,8 @@ public class Main extends PApplet{
 		cs.initStage(this);
 		g = new Game();
 		g.initStage(this);
-		coolBg = new Plasma();
-		coolBg.initStage(this);
+		//coolBg = new Plasma();
+		//coolBg.initStage(this);
 		keysPressed = new boolean[5];
 		keysPressed2 = new boolean[5];
 		
@@ -46,7 +46,7 @@ public class Main extends PApplet{
 		jumpFX = m.loadSample("jump.wav");
 		
 		
-		m.stop();
+		//m.stop();
 	}
 	
 	public void setup()
@@ -55,7 +55,7 @@ public class Main extends PApplet{
 		size(STAGE_WIDTH, STAGE_HEIGHT);
 		g.initChildren();
 		cs.initChildren();
-		coolBg.init();
+		//coolBg.init();
 		csSong.loop();
 	}
 	
@@ -63,10 +63,13 @@ public class Main extends PApplet{
 	public void draw()
 	{
 		clear();
-		//coolBg.warp( Math.sin( this.frameCount / 400.0 )*0.1 );
+		//coolBg.warp( Math.sin( this.frameCount / 30.0 ) * 0xfff );
 		//if( this.frameCount % 15 == 0 )
-			coolBg.rotateSeed( (int)( 0xff * Math.sin(this.frameCount/40.0) - 0x88));//coolBg.populate( 0.01 );//Math.sin( this.frameCount / 400.0 )*0.1 );
-		coolBg.draw();
+		//coolBg.offsetSeed( (int)(Math.cos(this.frameCount / 15.0 ) * 0x4ffff) );
+		//coolBg.setMorph( Math.sin( this.frameCount / 30.0 + 0.5) * 1);
+		//coolBg.populate( coolBg.popK );
+		//coolBg.populate( Math.cos( this.frameCount / 30.3 ) * 0.001 + 3);
+		//coolBg.draw();
 		
 			try {
 				if( ! csOver && ! MULTIPLAYER )
